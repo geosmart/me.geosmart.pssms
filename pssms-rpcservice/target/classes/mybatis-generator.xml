@@ -4,6 +4,8 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
 
+    <!--参考：https://github.com/gejun123456/MyBatisCodeHelper-->
+
     <!-- !!!! Driver Class Path !!!! -->
     <classPathEntry location="C:\Users\Think\.m2\repository-oschina\mysql\mysql-connector-java\5.1.40\mysql-connector-java-5.1.40.jar"/>
 
@@ -27,12 +29,12 @@
         </javaModelGenerator>
 
         <!-- !!!! Mapper XML Configurations !!!! -->
-        <sqlMapGenerator targetPackage="me.geosmart.pssms.rpcs.dao" targetProject="pssms-rpcservice">
+        <sqlMapGenerator targetPackage="me.geosmart.pssms.rpcs.mapper" targetProject="pssms-rpcservice">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- !!!! Mapper Interface Configurations !!!! -->
-        <javaClientGenerator targetPackage="me.geosmart.pssms.rpcs.dao" targetProject="pssms-rpcservice" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="me.geosmart.pssms.rpcs.mapper" targetProject="pssms-rpcservice" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
