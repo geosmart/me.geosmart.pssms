@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.geosmart.pssms.rpcs.mapper.TbBackOrderMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="me.geosmart.pssms.rpcs.entity.TbBackOrder">
+		<id column="back_order_id" property="backOrderId" />
+		<result column="customer_code" property="customerCode" />
+		<result column="amount" property="amount" />
+		<result column="parent_back_order_id" property="parentBackOrderId" />
+		<result column="back_order_status" property="backOrderStatus" />
+	</resultMap>
+
+</mapper>

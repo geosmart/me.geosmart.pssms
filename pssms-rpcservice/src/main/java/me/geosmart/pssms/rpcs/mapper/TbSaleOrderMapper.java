@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author geosmart
- * @since 2017-03-08
+ * @since 2017-03-09
  */
 public interface TbSaleOrderMapper extends BaseMapper<TbSaleOrder> {
 

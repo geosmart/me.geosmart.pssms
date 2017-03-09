@@ -1,7 +1,6 @@
 package me.geosmart.pssms.rpcs.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import me.geosmart.pssms.rpcs.entity.BaseEntity;
@@ -10,22 +9,26 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 货品销售记录
+ * 退货单使用记录
  * </p>
  *
  * @author geosmart
  * @since 2017-03-09
  */
-@TableName("tb_sale_order")
-public class TbSaleOrder extends BaseEntity<TbSaleOrder> {
+@TableName("tb_back_order_log")
+public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 单号
+     * 编号
      */
-	@TableId("order_id")
-	private String orderId;
+	private String serialId;
+    /**
+     * 退单号
+     */
+	@TableField("back_order_id")
+	private String backOrderId;
     /**
      * 客户编号
      */
@@ -50,12 +53,20 @@ public class TbSaleOrder extends BaseEntity<TbSaleOrder> {
 	private Double amount;
 
 
-	public String getOrderId() {
-		return orderId;
+	public String getSerialId() {
+		return serialId;
 	}
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
+	public void setSerialId(String serialId) {
+		this.serialId = serialId;
+	}
+
+	public String getBackOrderId() {
+		return backOrderId;
+	}
+
+	public void setBackOrderId(String backOrderId) {
+		this.backOrderId = backOrderId;
 	}
 
 	public String getCustomerCode() {
@@ -100,7 +111,7 @@ public class TbSaleOrder extends BaseEntity<TbSaleOrder> {
 
 	@Override
 	protected Serializable pkVal() {
-		return this.orderId;
+		return this.serialId;
 	}
 
 }

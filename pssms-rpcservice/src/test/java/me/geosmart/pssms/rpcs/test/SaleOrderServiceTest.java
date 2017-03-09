@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.UUID;
-
 import me.geosmart.pssms.rpcs.SpringbootApplication;
 import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
@@ -32,7 +30,8 @@ public class SaleOrderServiceTest {
     @Test
     public void test_insert() {
         TbSaleOrder sale = new TbSaleOrder();
-        sale.setOrderId(UUID.randomUUID().toString());
+        sale.setOrderId(Long.valueOf(System.currentTimeMillis()).toString());
+        sale.setCustomerCode("001");
         sale.setProductCode("6021");
         sale.setNumber(2);
         sale.setPrice(45D);

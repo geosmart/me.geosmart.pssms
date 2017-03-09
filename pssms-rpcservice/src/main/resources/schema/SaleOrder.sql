@@ -1,8 +1,9 @@
 -- auto Generated on 2017-03-08 14:07:31 
 DROP TABLE IF EXISTS `tb_sale_order`;
 CREATE TABLE `tb_sale_order`(
-    `order_id` VARCHAR (50) NOT NULL  COMMENT '单号',
-    `product_code` VARCHAR (50)  COMMENT '货号',
+    `order_id` VARCHAR (32) NOT NULL  COMMENT '单号',
+    `customer_code` VARCHAR (64)  COMMENT '客户编号',
+    `product_code` VARCHAR (32)  COMMENT '货号',
     `number` INT (11)  COMMENT '数量',
     `price` DOUBLE (16,2)   COMMENT '价格',
     `amount` DOUBLE (16,2)  COMMENT '金额',
