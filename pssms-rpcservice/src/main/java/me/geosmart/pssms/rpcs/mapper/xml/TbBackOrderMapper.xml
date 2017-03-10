@@ -6,9 +6,11 @@
 	<resultMap id="BaseResultMap" type="me.geosmart.pssms.rpcs.entity.TbBackOrder">
 		<id column="back_order_id" property="backOrderId" />
 		<result column="customer_code" property="customerCode" />
+		<result column="order_date" property="orderDate" />
 		<result column="amount" property="amount" />
 		<result column="parent_back_order_id" property="parentBackOrderId" />
 		<result column="back_order_status" property="backOrderStatus" />
+		<result column="memo" property="memo" />
 	</resultMap>
 
 </mapper>

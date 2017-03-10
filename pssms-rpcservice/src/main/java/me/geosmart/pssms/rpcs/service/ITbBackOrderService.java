@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.service.IService;
 
 /**
  * <p>
- * 退货单生成记录 服务类
+ * 退货单新增记录 服务类
  * </p>
  *
  * @author geosmart
- * @since 2017-03-09
+ * @since 2017-03-10
  */
 public interface ITbBackOrderService extends IService<TbBackOrder> {
 	

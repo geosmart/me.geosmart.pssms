@@ -30,7 +30,7 @@ public class SaleOrderServiceTest {
     @Test
     public void test_insert() {
         TbSaleOrder sale = new TbSaleOrder();
-        sale.setOrderId(Long.valueOf(System.currentTimeMillis()).toString());
+        sale.setSaleOrderId(Long.valueOf(System.currentTimeMillis()).toString());
         sale.setCustomerCode("001");
         sale.setProductCode("6021");
         sale.setNumber(2);

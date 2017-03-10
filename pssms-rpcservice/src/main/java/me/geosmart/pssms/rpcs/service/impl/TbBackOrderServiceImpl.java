@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 退货单生成记录 服务实现类
+ * 退货单新增记录 服务实现类
  * </p>
  *
  * @author geosmart
- * @since 2017-03-09
+ * @since 2017-03-10
  */
 @Service
 public class TbBackOrderServiceImpl extends ServiceImpl<TbBackOrderMapper, TbBackOrder> implements ITbBackOrderService {

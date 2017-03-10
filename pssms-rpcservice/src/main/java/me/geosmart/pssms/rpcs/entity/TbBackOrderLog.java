@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author geosmart
- * @since 2017-03-09
+ * @since 2017-03-10
  */
 @TableName("tb_back_order_log")
 public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
@@ -25,10 +25,20 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
      */
 	private String serialId;
     /**
-     * 退单号
+     * 销售单号
+     */
+	@TableField("sale_order_id")
+	private String saleOrderId;
+    /**
+     * 退单编号
      */
 	@TableField("back_order_id")
 	private String backOrderId;
+    /**
+     * 交易日期
+     */
+	@TableField("order_date")
+	private String orderDate;
     /**
      * 客户编号
      */
@@ -48,9 +58,18 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
      */
 	private Double price;
     /**
-     * 金额
+     * 价格
      */
 	private Double amount;
+    /**
+     * 退单使用金额
+     */
+	@TableField("back_amount")
+	private Double backAmount;
+    /**
+     * 备注
+     */
+	private String memo;
 
 
 	public String getSerialId() {
@@ -61,12 +80,28 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
 		this.serialId = serialId;
 	}
 
+	public String getSaleOrderId() {
+		return saleOrderId;
+	}
+
+	public void setSaleOrderId(String saleOrderId) {
+		this.saleOrderId = saleOrderId;
+	}
+
 	public String getBackOrderId() {
 		return backOrderId;
 	}
 
 	public void setBackOrderId(String backOrderId) {
 		this.backOrderId = backOrderId;
+	}
+
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
 	}
 
 	public String getCustomerCode() {
@@ -107,6 +142,22 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+
+	public Double getBackAmount() {
+		return backAmount;
+	}
+
+	public void setBackAmount(Double backAmount) {
+		this.backAmount = backAmount;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 
 	@Override

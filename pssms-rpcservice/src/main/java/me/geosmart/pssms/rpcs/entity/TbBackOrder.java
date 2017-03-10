@@ -10,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 退货单生成记录
+ * 退货单新增记录
  * </p>
  *
  * @author geosmart
- * @since 2017-03-09
+ * @since 2017-03-10
  */
 @TableName("tb_back_order")
 public class TbBackOrder extends BaseEntity<TbBackOrder> {
@@ -22,7 +22,7 @@ public class TbBackOrder extends BaseEntity<TbBackOrder> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 退单号
+     * 退单编号（如果是系统生成，已-0结尾）
      */
 	@TableId("back_order_id")
 	private String backOrderId;
@@ -31,6 +31,11 @@ public class TbBackOrder extends BaseEntity<TbBackOrder> {
      */
 	@TableField("customer_code")
 	private String customerCode;
+    /**
+     * 交易日期
+     */
+	@TableField("order_date")
+	private String orderDate;
     /**
      * 退单金额
      */
@@ -45,6 +50,10 @@ public class TbBackOrder extends BaseEntity<TbBackOrder> {
      */
 	@TableField("back_order_status")
 	private String backOrderStatus;
+    /**
+     * 备注
+     */
+	private String memo;
 
 
 	public String getBackOrderId() {
@@ -61,6 +70,14 @@ public class TbBackOrder extends BaseEntity<TbBackOrder> {
 
 	public void setCustomerCode(String customerCode) {
 		this.customerCode = customerCode;
+	}
+
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
 	}
 
 	public Double getAmount() {
@@ -85,6 +102,14 @@ public class TbBackOrder extends BaseEntity<TbBackOrder> {
 
 	public void setBackOrderStatus(String backOrderStatus) {
 		this.backOrderStatus = backOrderStatus;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 
 	@Override

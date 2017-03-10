@@ -4,12 +4,15 @@
 
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="me.geosmart.pssms.rpcs.entity.TbSaleOrder">
-		<id column="order_id" property="orderId" />
+		<id column="serialId" property="serialId" />
+		<result column="sale_order_id" property="saleOrderId" />
+		<result column="order_date" property="orderDate" />
 		<result column="customer_code" property="customerCode" />
 		<result column="product_code" property="productCode" />
 		<result column="number" property="number" />
 		<result column="price" property="price" />
 		<result column="amount" property="amount" />
+		<result column="memo" property="memo" />
 	</resultMap>
 
 </mapper>

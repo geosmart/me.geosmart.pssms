@@ -1,9 +1,10 @@
-package me.demo.pssms.client.front.service.impl;
+package me.geosmart.pssms.rpcs.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -12,16 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import me.demo.pssms.client.front.service.IDataExchangeService;
 import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
+import me.geosmart.pssms.rpcs.service.IDataExchangeService;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
-import me.geosmart.pssms.rpcs.service.impl.TbSaleOrderServiceImpl;
+import me.geosmart.pssms.rpcs.util.SerialService;
 
 /**
  * <p>
@@ -31,15 +32,12 @@ import me.geosmart.pssms.rpcs.service.impl.TbSaleOrderServiceImpl;
  * @author geosmart
  * @since 2017-03-09
  */
-@Service("dataExchangeService")
+@Service
 public class DataExchangeServiceImpl implements IDataExchangeService {
 
     static Map<String, String> saleOrderMap = new HashMap<String, String>();
 
     static Map<Integer, String> titleMap = new HashMap();
-
-    @Autowired
-    private ITbSaleOrderService saleOrderService;
 
     static {
         saleOrderMap.put("日期", "order_date");
@@ -55,7 +53,10 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         saleOrderMap.put("备注", "memo");
     }
 
-    public void importSaleOrder(String filePath) throws IOException {
+    @Autowired
+    private ITbSaleOrderService saleOrderService;
+
+    public void importSaleOrder(String filePath) throws Exception {
         InputStream ExcelFileToRead = new FileInputStream(filePath);
         XSSFWorkbook wb = new XSSFWorkbook(ExcelFileToRead);
         XSSFWorkbook test = new XSSFWorkbook();
@@ -71,8 +72,10 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         while (rows.hasNext()) {
             row = (XSSFRow) rows.next();
             TbSaleOrder saleOrder = getSaleOrder(row);
-            saleOrderService.insert(saleOrder);
-            System.out.println(saleOrder.toString());
+            if (saleOrder != null) {
+                System.out.println(JSON.toJSONString(saleOrder, true));
+                saleOrderService.insert(saleOrder);
+            }
         }
     }
 
@@ -87,7 +90,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         return titleMap;
     }
 
-    private TbSaleOrder getSaleOrder(XSSFRow row) {
+    private TbSaleOrder getSaleOrder(XSSFRow row) throws Exception {
         Iterator cells = row.cellIterator();
         XSSFCell cell;
         JSONObject jsonEntity = new JSONObject();
@@ -97,15 +100,30 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
             int colIndex = cell.getColumnIndex();
             String title = titleMap.get(colIndex);
             String saleOrderKey = saleOrderMap.get(title);
-            Object cellValue;
-            if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC || cell.getCellType() == XSSFCell.CELL_TYPE_FORMULA) {
-                cellValue = cell.getNumericCellValue();
-            } else {
+            Object cellValue = null;
+
+            if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
                 cellValue = cell.getStringCellValue();
+            } else if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                cellValue = cell.getDateCellValue();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                cellValue = sdf.format(cellValue);
+            } else if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC || cell.getCellType() == XSSFCell.CELL_TYPE_FORMULA) {
+                cellValue = cell.getNumericCellValue();
             }
-            jsonEntity.put(saleOrderKey, cellValue);
+            if (cellValue != null) {
+                jsonEntity.put(saleOrderKey, cellValue);
+            }
         }
         TbSaleOrder tbSaleOrder = JSON.parseObject(jsonEntity.toJSONString(), TbSaleOrder.class);
+        tbSaleOrder.setSerialId(SerialService.newSerialId().toString());
+        if (StringUtils.isBlank(tbSaleOrder.getProductCode())) {
+            tbSaleOrder = null;
+        } else {
+            if (StringUtils.isBlank(tbSaleOrder.getSaleOrderId())) {
+                tbSaleOrder.setSaleOrderId(" ");
+            }
+        }
         return tbSaleOrder;
     }
 }
