@@ -9,7 +9,7 @@ CREATE TABLE `tb_back_order_log`(
     `product_code` VARCHAR (32)  COMMENT '货号',
     `number` INT (11)  COMMENT '数量',
     `price` DOUBLE (16,2)   COMMENT '价格',
-    `amount` DOUBLE (16,2)   COMMENT '价格',
+    `amount` DOUBLE (16,2)   COMMENT '金额',
     `back_amount` DOUBLE (16,2)  COMMENT '退单使用金额',
 
     `memo` VARCHAR (512)  COMMENT '备注',

@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author geosmart
- * @since 2017-03-10
+ * @since 2017-03-11
  */
 @TableName("tb_sale_order")
 public class TbSaleOrder extends BaseEntity<TbSaleOrder> {

@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS `tb_sale_order`;
 CREATE TABLE `tb_sale_order`(
     `serialId` VARCHAR (32) NOT NULL  COMMENT '编号',
-    `sale_order_id` VARCHAR (32) NOT NULL  COMMENT '销售单号',
+    `sale_order_id` VARCHAR (32) NOT NULL  DEFAULT ""  COMMENT '销售单号',
     `order_date` VARCHAR (32) NOT NULL  COMMENT '交易日期',
     `customer_code` VARCHAR (64)  COMMENT '客户编号',
     `product_code` VARCHAR (32)  COMMENT '货号',

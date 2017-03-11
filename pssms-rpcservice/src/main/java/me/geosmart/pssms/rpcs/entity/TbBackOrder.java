@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author geosmart
- * @since 2017-03-10
+ * @since 2017-03-11
  */
 @TableName("tb_back_order")
 public class TbBackOrder extends BaseEntity<TbBackOrder> {

@@ -1,12 +1,12 @@
 -- auto Generated on 2017-03-08 14:07:31 
 DROP TABLE IF EXISTS `tb_back_order`;
 CREATE TABLE `tb_back_order`(
-    `back_order_id` VARCHAR (32) NOT NULL  COMMENT '退单编号（如果是系统生成，已-0结尾）',
+    `back_order_id` VARCHAR (32) NOT NULL DEFAULT "" COMMENT '退单编号（如果是系统生成，已-0结尾）',
     `customer_code` VARCHAR (64)  COMMENT '客户编号',
     `order_date` VARCHAR (32) NOT NULL  COMMENT '交易日期',
     `amount` DOUBLE (16,2)  COMMENT '退单金额',
     `parent_back_order_id` VARCHAR (32) COMMENT '父退单号',
-    `back_order_status` VARCHAR (32) COMMENT '退单使用情况',
+    `back_order_status` VARCHAR (32)  NOT NULL DEFAULT "0" COMMENT '退单使用情况',
 
     `memo` VARCHAR (512)  COMMENT '备注',
     creation_time DATETIME NOT NULL COMMENT '创建时间',

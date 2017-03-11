@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.service.IService;
  * </p>
  *
  * @author geosmart
- * @since 2017-03-10
+ * @since 2017-03-11
  */
 public interface ITbBackProductService extends IService<TbBackProduct> {
 	
