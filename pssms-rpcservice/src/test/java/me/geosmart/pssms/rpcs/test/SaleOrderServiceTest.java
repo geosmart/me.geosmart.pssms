@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+import java.util.Map;
+
 import me.geosmart.pssms.rpcs.SpringbootApplication;
 import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
@@ -43,6 +46,12 @@ public class SaleOrderServiceTest {
     public void test_selectById() {
         TbSaleOrder findOrder = saleOrderService.selectById("479ced03-1d3e-44c3-873d-a3c7044d3fdb");
         assertNotNull(findOrder);
+    }
+
+    @Test
+    public void test_groupByProduct() throws Exception {
+        List<Map> map = saleOrderService.groupByProduct();
+        assertNotNull(map);
     }
 
     @Test

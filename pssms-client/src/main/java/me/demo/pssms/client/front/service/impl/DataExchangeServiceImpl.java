@@ -101,7 +101,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
             if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC || cell.getCellType() == XSSFCell.CELL_TYPE_FORMULA) {
                 cellValue = cell.getNumericCellValue();
             } else {
-                cellValue = cell.getStringCellValue();
+                cellValue = cell.getStringCellValue().trim();
             }
             jsonEntity.put(saleOrderKey, cellValue);
         }

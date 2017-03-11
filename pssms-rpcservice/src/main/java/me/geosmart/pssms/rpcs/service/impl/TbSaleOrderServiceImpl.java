@@ -1,10 +1,15 @@
 package me.geosmart.pssms.rpcs.service.impl;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
 import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
 import me.geosmart.pssms.rpcs.mapper.TbSaleOrderMapper;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -16,5 +21,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TbSaleOrderServiceImpl extends ServiceImpl<TbSaleOrderMapper, TbSaleOrder> implements ITbSaleOrderService {
-	
+
+    @Override
+    public List<Map> groupByProduct() {
+        return baseMapper.groupByProduct();
+    }
 }

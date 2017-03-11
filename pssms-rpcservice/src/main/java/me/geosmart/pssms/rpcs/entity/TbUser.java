@@ -1,6 +1,7 @@
 package me.geosmart.pssms.rpcs.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import me.geosmart.pssms.rpcs.entity.BaseEntity;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public class TbUser extends BaseEntity<TbUser> {
     /**
      * 用户编号
      */
+	@TableId
 	private Long id;
     /**
      * 姓名

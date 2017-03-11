@@ -2,6 +2,7 @@ package me.geosmart.pssms.rpcs.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import me.geosmart.pssms.rpcs.entity.BaseEntity;
 import java.io.Serializable;
@@ -23,6 +24,7 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
     /**
      * 编号
      */
+    @TableId
 	private String serialId;
     /**
      * 销售单号
@@ -35,32 +37,15 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
 	@TableField("back_order_id")
 	private String backOrderId;
     /**
-     * 交易日期
-     */
-	@TableField("order_date")
-	private String orderDate;
-    /**
      * 客户编号
      */
 	@TableField("customer_code")
 	private String customerCode;
     /**
-     * 货号
+     * 交易日期
      */
-	@TableField("product_code")
-	private String productCode;
-    /**
-     * 数量
-     */
-	private Integer number;
-    /**
-     * 价格
-     */
-	private Double price;
-    /**
-     * 金额
-     */
-	private Double amount;
+	@TableField("order_date")
+	private String orderDate;
     /**
      * 退单使用金额
      */
@@ -96,14 +81,6 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
 		this.backOrderId = backOrderId;
 	}
 
-	public String getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
-	}
-
 	public String getCustomerCode() {
 		return customerCode;
 	}
@@ -112,36 +89,12 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
 		this.customerCode = customerCode;
 	}
 
-	public String getProductCode() {
-		return productCode;
+	public String getOrderDate() {
+		return orderDate;
 	}
 
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
-	}
-
-	public Integer getNumber() {
-		return number;
-	}
-
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
 	}
 
 	public Double getBackAmount() {

@@ -1,7 +1,7 @@
 -- auto Generated on 2017-03-08 14:07:31 
 DROP TABLE IF EXISTS `tb_back_product`;
 CREATE TABLE `tb_back_product`(
-    `serialId` VARCHAR (32) NOT NULL  COMMENT '编号',
+    `serialId` VARCHAR (32) NOT NULL AUTO_INCREMENT COMMENT '编号',
     `back_order_id` VARCHAR (32) NOT NULL  COMMENT '退单编号',
     `order_date` VARCHAR (32) NOT NULL  COMMENT '交易日期',
     `customer_code` VARCHAR (64)  COMMENT '客户编号',

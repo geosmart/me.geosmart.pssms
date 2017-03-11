@@ -1,7 +1,11 @@
 package me.geosmart.pssms.rpcs.service;
 
 import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
+
 import com.baomidou.mybatisplus.service.IService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -12,5 +16,5 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2017-03-11
  */
 public interface ITbSaleOrderService extends IService<TbSaleOrder> {
-	
+    List<Map> groupByProduct();
 }

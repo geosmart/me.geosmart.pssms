@@ -1,15 +1,11 @@
 -- auto Generated on 2017-03-08 14:07:31 
 DROP TABLE IF EXISTS `tb_back_order_log`;
 CREATE TABLE `tb_back_order_log`(
-    `serialId` VARCHAR (32) NOT NULL  COMMENT '编号',
+    `serialId` VARCHAR (32) NOT NULL  AUTO_INCREMENT COMMENT '编号',
     `sale_order_id` VARCHAR (64)  COMMENT '销售单号',
     `back_order_id` VARCHAR (32) NOT NULL  COMMENT '退单编号',
-    `order_date` VARCHAR (32) NOT NULL  COMMENT '交易日期',
     `customer_code` VARCHAR (64)  COMMENT '客户编号',
-    `product_code` VARCHAR (32)  COMMENT '货号',
-    `number` INT (11)  COMMENT '数量',
-    `price` DOUBLE (16,2)   COMMENT '价格',
-    `amount` DOUBLE (16,2)   COMMENT '金额',
+    `order_date` VARCHAR (32) NOT NULL  COMMENT '交易日期',
     `back_amount` DOUBLE (16,2)  COMMENT '退单使用金额',
 
     `memo` VARCHAR (512)  COMMENT '备注',

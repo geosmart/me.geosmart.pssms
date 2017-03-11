@@ -12,9 +12,13 @@ import java.net.InetAddress;
  */
 public class SerialService {
     private final static Logger logger = Logger.getLogger(SerialService.class);
+    static SnowFlake snowFlake = null;
+
 
     public static Long newSerialId() throws Exception {
-        SnowFlake snowFlake = new SnowFlake(new Worker().workId);
+        if (snowFlake == null) {
+            snowFlake = new SnowFlake(new Worker().workId);
+        }
         return snowFlake.nextId();
     }
 

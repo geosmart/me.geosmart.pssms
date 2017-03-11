@@ -39,12 +39,10 @@ import me.geosmart.pssms.rpcs.util.SerialService;
  */
 @Service
 public class DataExchangeServiceImpl implements IDataExchangeService {
-
     static Map<String, String> saleOrderMap = new HashMap<String, String>();
     static Map<String, String> backProductMap = new HashMap<String, String>();
     static Map<String, String> backOrderMap = new HashMap<String, String>();
     static Map<String, String> backOrderLogMap = new HashMap<String, String>();
-
     static Map<Integer, String> titleMap = new HashMap();
 
     static {
@@ -82,25 +80,16 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         saleOrderMap.put("销售单号", "sale_order_id");
         backOrderLogMap.put("退单编号", "back_order_id");
         backOrderLogMap.put("客户", "customer_code");
-        backOrderLogMap.put("货号", "product_code");
-        backOrderLogMap.put("款号", "product_code");
-        backOrderLogMap.put("数量", "number");
-        backOrderLogMap.put("价格", "price");
-        backOrderLogMap.put("单价", "price");
-        backOrderLogMap.put("金额", "amount");
         backOrderLogMap.put("退单使用金额", "back_amount");
         backOrderLogMap.put("备注", "memo");
     }
 
     @Autowired
     private ITbSaleOrderService saleOrderService;
-
     @Autowired
     private ITbBackProductService backProductService;
-
     @Autowired
     private ITbBackOrderService backOrderService;
-
     @Autowired
     private ITbBackOrderLogService backOrderLogService;
 
@@ -186,7 +175,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
     private TbSaleOrder getSaleOrder(XSSFRow row) throws Exception {
         JSONObject jsonEntity = getJsonEntityFromRow(row, saleOrderMap);
         TbSaleOrder tbSaleOrder = JSON.parseObject(jsonEntity.toJSONString(), TbSaleOrder.class);
-        tbSaleOrder.setSerialId(SerialService.newSerialId().toString());
+//        tbSaleOrder.setSerialId(SerialService.newSerialId().toString());
         if (StringUtils.isBlank(tbSaleOrder.getProductCode())) {
             tbSaleOrder = null;
         }
@@ -196,7 +185,6 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
     private TbBackProduct getBackProduct(XSSFRow row) throws Exception {
         JSONObject jsonEntity = getJsonEntityFromRow(row, backProductMap);
         TbBackProduct backProduct = JSON.parseObject(jsonEntity.toJSONString(), TbBackProduct.class);
-        backProduct.setSerialId(SerialService.newSerialId().toString());
         if (StringUtils.isBlank(backProduct.getProductCode())) {
             backProduct = null;
         }
@@ -216,7 +204,6 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
     private TbBackOrderLog getBackOrderLog(XSSFRow row) throws Exception {
         JSONObject jsonEntity = getJsonEntityFromRow(row, backOrderLogMap);
         TbBackOrderLog backOrderLog = JSON.parseObject(jsonEntity.toJSONString(), TbBackOrderLog.class);
-        backOrderLog.setSerialId(SerialService.newSerialId().toString());
         if (StringUtils.isBlank(backOrderLog.getBackOrderId())) {
             backOrderLog = null;
         }
@@ -236,7 +223,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
             Object cellValue = null;
 
             if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
-                cellValue = cell.getStringCellValue();
+                cellValue = cell.getStringCellValue().trim();
             } else if (HSSFDateUtil.isCellDateFormatted(cell)) {
                 cellValue = cell.getDateCellValue();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -257,7 +244,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         while (titleCells.hasNext()) {
             XSSFCell cell = (XSSFCell) titleCells.next();
             if (StringUtils.isNotBlank(cell.getStringCellValue())) {
-                titleMap.put(cell.getColumnIndex(), cell.getStringCellValue());
+                titleMap.put(cell.getColumnIndex(), cell.getStringCellValue().trim());
             }
         }
         return titleMap;
