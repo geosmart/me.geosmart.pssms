@@ -1,10 +1,14 @@
 package me.geosmart.pssms.rpcs.service.impl;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+
+import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+
 import me.geosmart.pssms.rpcs.entity.TbBackOrderLog;
 import me.geosmart.pssms.rpcs.mapper.TbBackOrderLogMapper;
 import me.geosmart.pssms.rpcs.service.ITbBackOrderLogService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -16,5 +20,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TbBackOrderLogServiceImpl extends ServiceImpl<TbBackOrderLogMapper, TbBackOrderLog> implements ITbBackOrderLogService {
-	
+
+    @Override
+    public Double selectSumBackAmount(Date orderDateBegin, Date orderDateEnd) {
+        return baseMapper.selectSumBackAmount(orderDateBegin, orderDateEnd);
+    }
 }

@@ -1,7 +1,10 @@
 package me.geosmart.pssms.rpcs.service;
 
-import me.geosmart.pssms.rpcs.entity.TbBackOrderLog;
 import com.baomidou.mybatisplus.service.IService;
+
+import java.sql.Date;
+
+import me.geosmart.pssms.rpcs.entity.TbBackOrderLog;
 
 /**
  * <p>
@@ -12,5 +15,9 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2017-03-11
  */
 public interface ITbBackOrderLogService extends IService<TbBackOrderLog> {
-	
+
+    /**
+     * 总退货单使用金额
+     */
+    Double selectSumBackAmount(Date orderDateBegin, Date orderDateEnd);
 }

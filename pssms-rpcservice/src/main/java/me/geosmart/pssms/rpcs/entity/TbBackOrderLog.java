@@ -25,7 +25,7 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
      * 编号
      */
     @TableId
-	private String serialId;
+	private Long serialId;
     /**
      * 销售单号
      */
@@ -57,11 +57,11 @@ public class TbBackOrderLog extends BaseEntity<TbBackOrderLog> {
 	private String memo;
 
 
-	public String getSerialId() {
+	public Long getSerialId() {
 		return serialId;
 	}
 
-	public void setSerialId(String serialId) {
+	public void setSerialId(Long serialId) {
 		this.serialId = serialId;
 	}
 

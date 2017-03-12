@@ -42,11 +42,11 @@ public class MybatisPlusGenarator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         gc.setOutputDir("D:\\JavaWorkspace\\me.geosmart.pssms\\pssms-rpcservice\\src\\main\\java\\");
-        gc.setFileOverride(true);
+        gc.setFileOverride(false);
         gc.setActiveRecord(true);
         gc.setEnableCache(false);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
-        gc.setBaseColumnList(false);// XML columList
+        gc.setBaseColumnList(true);// XML columList
         gc.setAuthor("geosmart");
 
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
@@ -79,9 +79,9 @@ public class MybatisPlusGenarator {
         // 此处可以修改为您的表前缀
         strategy.setTablePrefix(new String[]{"tb_"});
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-//        strategy.setInclude(new String[]{"tb_sale_order",""}); // 需要生成的表]
+        strategy.setInclude(new String[]{"tb_sale_order"}); // 需要生成的表]
 
-        strategy.setInclude(new String[]{"tb_user", "tb_back_order", "tb_back_order_log", "tb_back_product", "tb_sale_order", "tb_sale_order"}); // 需要生成的表
+//        strategy.setInclude(new String[]{"tb_user", "tb_back_order", "tb_back_order_log", "tb_back_product", "tb_sale_order", "tb_sale_order"}); // 需要生成的表
 //        strategy.setExclude(new String[]{"t_user"}); // 排除生成的表
         // 字段名生成策略
         strategy.setFieldNaming(NamingStrategy.underline_to_camel);

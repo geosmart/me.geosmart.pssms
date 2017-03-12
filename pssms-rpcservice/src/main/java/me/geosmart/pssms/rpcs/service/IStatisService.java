@@ -1,6 +1,9 @@
 package me.geosmart.pssms.rpcs.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import java.sql.Date;
 
 /**
  * <p>
@@ -15,17 +18,22 @@ public interface IStatisService {
     /**
      * 统计各货号销售额，和总销售额
      */
-    JSONObject statisSaleAmount() throws Exception;
+    JSONObject statisSaleAmount(Date orderDateBegin, Date orderDateEnd, String orderType) throws Exception;
 
 
     /**
      * 统计各货号退货率
      */
-    JSONObject statisBackRate() throws Exception;
+    JSONObject statisBackRate(Date orderDateBegin, Date orderDateEnd) throws Exception;
 
 
     /**
-     * 统计未用退单金额
+     * 统计未用退单
      */
-    JSONObject statisBackOrder() throws Exception;
+    JSONArray statisBackOrder(Date orderDateBegin, Date orderDateEnd, String orderStatus) throws Exception;
+
+    /**
+     * 导出统计结果
+     */
+    void exportStatisResult(Date orderDateBegin, Date orderDateEnd, String filePath) throws Exception;
 }

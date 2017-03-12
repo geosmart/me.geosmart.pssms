@@ -13,4 +13,15 @@
 		<result column="memo" property="memo" />
 	</resultMap>
 
+    <select id="selectBackOrderByStatus" resultType="java.util.HashMap">
+
+		SELECT product_code,order_type,sum(number) as sale_number FROM tb_sale_order
+		<where>
+			number is not null
+			<if test="orderDateBegin != null">AND order_date <![CDATA[ >= ]]> #{orderDateBegin}</if>
+			<if test="orderDateEnd != null">AND order_date <![CDATA[ <= ]]> #{orderDateEnd}</if>
+		</where>
+		GROUP BY product_code,order_type  ORDER BY product_code,order_type desc,sale_number  desc
+	</select>
+
 </mapper>

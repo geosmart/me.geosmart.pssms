@@ -20,14 +20,11 @@ import java.util.Map;
 
 import me.geosmart.pssms.rpcs.entity.TbBackOrder;
 import me.geosmart.pssms.rpcs.entity.TbBackOrderLog;
-import me.geosmart.pssms.rpcs.entity.TbBackProduct;
 import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
 import me.geosmart.pssms.rpcs.service.IDataExchangeService;
 import me.geosmart.pssms.rpcs.service.ITbBackOrderLogService;
 import me.geosmart.pssms.rpcs.service.ITbBackOrderService;
-import me.geosmart.pssms.rpcs.service.ITbBackProductService;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
-import me.geosmart.pssms.rpcs.util.SerialService;
 
 /**
  * <p>
@@ -40,14 +37,15 @@ import me.geosmart.pssms.rpcs.util.SerialService;
 @Service
 public class DataExchangeServiceImpl implements IDataExchangeService {
     static Map<String, String> saleOrderMap = new HashMap<String, String>();
-    static Map<String, String> backProductMap = new HashMap<String, String>();
     static Map<String, String> backOrderMap = new HashMap<String, String>();
     static Map<String, String> backOrderLogMap = new HashMap<String, String>();
     static Map<Integer, String> titleMap = new HashMap();
 
     static {
+        saleOrderMap.put("交易类型", "order_type");
         saleOrderMap.put("日期", "order_date");
-        saleOrderMap.put("销售单号", "sale_order_id");
+        saleOrderMap.put("单号", "order_id");
+        saleOrderMap.put("日期", "order_date");
         saleOrderMap.put("客户", "customer_code");
         saleOrderMap.put("货号", "product_code");
         saleOrderMap.put("款号", "product_code");
@@ -57,27 +55,17 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         saleOrderMap.put("金额", "amount");
         saleOrderMap.put("备注", "memo");
 
-        backProductMap.put("日期", "order_date");
-        backProductMap.put("退单编号", "back_order_id");
-        backProductMap.put("客户", "customer_code");
-        backProductMap.put("货号", "product_code");
-        backProductMap.put("款号", "product_code");
-        backProductMap.put("数量", "number");
-        backProductMap.put("价格", "price");
-        backProductMap.put("单价", "price");
-        backProductMap.put("退货金额", "amount");
-        backProductMap.put("备注", "memo");
-
         backOrderMap.put("日期", "order_date");
         backOrderMap.put("退单编号", "back_order_id");
         backOrderMap.put("客户", "customer_code");
         backOrderMap.put("退单金额", "amount");
         backOrderMap.put("父退单号", "parent_back_order_id");
+        backOrderMap.put("父退单", "parent_back_order_id");
         backOrderMap.put("使用情况", "back_order_status");
         backOrderMap.put("备注", "memo");
 
         backOrderLogMap.put("日期", "order_date");
-        saleOrderMap.put("销售单号", "sale_order_id");
+        backOrderLogMap.put("销售单号", "sale_order_id");
         backOrderLogMap.put("退单编号", "back_order_id");
         backOrderLogMap.put("客户", "customer_code");
         backOrderLogMap.put("退单使用金额", "back_amount");
@@ -86,8 +74,6 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
 
     @Autowired
     private ITbSaleOrderService saleOrderService;
-    @Autowired
-    private ITbBackProductService backProductService;
     @Autowired
     private ITbBackOrderService backOrderService;
     @Autowired
@@ -99,7 +85,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         //销售列表
         XSSFSheet sheetSaleOrder = wb.getSheetAt(0);
         if (!sheetSaleOrder.getSheetName().equals("销售记录")) {
-            throw new Exception("99999:sheet名称不正确");
+            throw new Exception("99999:sheet名称不正确,应为<销售记录>，实际为<" + sheetSaleOrder.getSheetName() + ">");
         }
         Iterator rows = sheetSaleOrder.rowIterator();
         titleMap = getTitleMap((XSSFRow) rows.next());
@@ -115,8 +101,9 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         }
     }
 
+
     @Override
-    public void importBackProduct(String filePath) throws Exception {
+    public void importBackOrder(String filePath) throws Exception {
         XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(filePath));
         //销售列表
         XSSFSheet sheetSaleOrder = wb.getSheetAt(1);
@@ -127,28 +114,9 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         //行循环
         while (rows.hasNext()) {
             row = (XSSFRow) rows.next();
-            TbBackProduct backProduct = getBackProduct(row);
-            if (backProduct != null) {
-                backProductService.insert(backProduct);
-            }
-        }
-    }
-
-    @Override
-    public void importBackOrder(String filePath) throws Exception {
-        XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(filePath));
-        //销售列表
-        XSSFSheet sheetSaleOrder = wb.getSheetAt(2);
-        Iterator rows = sheetSaleOrder.rowIterator();
-        titleMap = getTitleMap((XSSFRow) rows.next());
-
-        XSSFRow row;
-        //行循环
-        while (rows.hasNext()) {
-            row = (XSSFRow) rows.next();
             TbBackOrder backOrder = getBackOrder(row);
             if (backOrder != null) {
-                backOrderService.insert(backOrder);
+                backOrderService.insertOrUpdate(backOrder);
             }
         }
     }
@@ -157,7 +125,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
     public void importBackOrderLog(String filePath) throws Exception {
         XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(filePath));
         //销售列表
-        XSSFSheet sheetSaleOrder = wb.getSheetAt(3);
+        XSSFSheet sheetSaleOrder = wb.getSheetAt(2);
         Iterator rows = sheetSaleOrder.rowIterator();
         titleMap = getTitleMap((XSSFRow) rows.next());
 
@@ -179,16 +147,10 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         if (StringUtils.isBlank(tbSaleOrder.getProductCode())) {
             tbSaleOrder = null;
         }
-        return tbSaleOrder;
-    }
-
-    private TbBackProduct getBackProduct(XSSFRow row) throws Exception {
-        JSONObject jsonEntity = getJsonEntityFromRow(row, backProductMap);
-        TbBackProduct backProduct = JSON.parseObject(jsonEntity.toJSONString(), TbBackProduct.class);
-        if (StringUtils.isBlank(backProduct.getProductCode())) {
-            backProduct = null;
+        if (tbSaleOrder != null && StringUtils.isNotBlank(tbSaleOrder.getOrderType())) {
+            tbSaleOrder.setOrderType(new Integer(Double.valueOf(tbSaleOrder.getOrderType()).intValue()).toString());
         }
-        return backProduct;
+        return tbSaleOrder;
     }
 
     private TbBackOrder getBackOrder(XSSFRow row) throws Exception {
@@ -197,6 +159,9 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         if (StringUtils.isBlank(backOrder.getBackOrderId())) {
             backOrder = null;
         }
+        if (backOrder != null && StringUtils.isNotBlank(backOrder.getBackOrderStatus())) {
+            backOrder.setBackOrderStatus(new Integer(Double.valueOf(backOrder.getBackOrderStatus()).intValue()).toString());
+        }
         return backOrder;
     }
 
@@ -204,7 +169,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
     private TbBackOrderLog getBackOrderLog(XSSFRow row) throws Exception {
         JSONObject jsonEntity = getJsonEntityFromRow(row, backOrderLogMap);
         TbBackOrderLog backOrderLog = JSON.parseObject(jsonEntity.toJSONString(), TbBackOrderLog.class);
-        if (StringUtils.isBlank(backOrderLog.getBackOrderId())) {
+        if (backOrderLog.getBackAmount() == null) {
             backOrderLog = null;
         }
         return backOrderLog;
@@ -226,8 +191,12 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
                 cellValue = cell.getStringCellValue().trim();
             } else if (HSSFDateUtil.isCellDateFormatted(cell)) {
                 cellValue = cell.getDateCellValue();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                cellValue = sdf.format(cellValue);
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                    cellValue = sdf.format(cellValue);
+                } catch (Exception e) {
+                    System.out.println("日期解析异常：" + cellValue);
+                }
             } else if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC || cell.getCellType() == XSSFCell.CELL_TYPE_FORMULA) {
                 cellValue = cell.getNumericCellValue();
             }

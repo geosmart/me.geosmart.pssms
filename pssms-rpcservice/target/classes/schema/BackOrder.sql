@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS `tb_back_order`;
 CREATE TABLE `tb_back_order`(
     `back_order_id` VARCHAR (32) NOT NULL  COMMENT '退单编号',
     `customer_code` VARCHAR (64)  COMMENT '客户编号',
-    `order_date` VARCHAR (32) NOT NULL  COMMENT '交易日期',
+    `order_date`  DATE NOT NULL  COMMENT '交易日期',
     `amount` DOUBLE (16,2)  COMMENT '退单金额',
     `parent_back_order_id` VARCHAR (32) COMMENT '父退单号',
     `back_order_status` VARCHAR (32)  NOT NULL DEFAULT "0" COMMENT '退单使用情况',

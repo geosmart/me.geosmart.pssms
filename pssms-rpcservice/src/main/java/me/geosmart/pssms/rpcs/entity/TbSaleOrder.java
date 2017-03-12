@@ -5,15 +5,16 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
  * <p>
- * 货品销售记录
+ * 货品交易（销售/退货）记录
  * </p>
  *
  * @author geosmart
- * @since 2017-03-11
+ * @since 2017-03-12
  */
 @TableName("tb_sale_order")
 public class TbSaleOrder extends BaseEntity<TbSaleOrder> {
@@ -24,120 +25,133 @@ public class TbSaleOrder extends BaseEntity<TbSaleOrder> {
      * 编号
      */
     @TableId
-    private Long serialId;
+	private Long serialId;
     /**
-     * 销售单号
+     * 交易类型（0-退货，1-销售）
      */
-    @TableField("sale_order_id")
-    private String saleOrderId;
+	@TableField("order_type")
+	private String orderType;
+    /**
+     * 交易单号
+     */
+	@TableField("order_id")
+	private String orderId;
     /**
      * 交易日期
      */
-    @TableField("order_date")
-    private String orderDate;
+	@TableField("order_date")
+	private Date orderDate;
     /**
      * 客户编号
      */
-    @TableField("customer_code")
-    private String customerCode;
+	@TableField("customer_code")
+	private String customerCode;
     /**
      * 货号
      */
-    @TableField("product_code")
-    private String productCode;
+	@TableField("product_code")
+	private String productCode;
     /**
      * 数量
      */
-    private Integer number;
+	private Integer number;
     /**
      * 价格
      */
-    private Double price;
+	private Double price;
     /**
      * 金额
      */
-    private Double amount;
+	private Double amount;
     /**
      * 备注
      */
-    private String memo;
+	private String memo;
 
 
-    public Long getSerialId() {
-        return serialId;
-    }
+	public Long getSerialId() {
+		return serialId;
+	}
 
-    public void setSerialId(Long serialId) {
-        this.serialId = serialId;
-    }
+	public void setSerialId(Long serialId) {
+		this.serialId = serialId;
+	}
 
-    public String getSaleOrderId() {
-        return saleOrderId;
-    }
+	public String getOrderType() {
+		return orderType;
+	}
 
-    public void setSaleOrderId(String saleOrderId) {
-        this.saleOrderId = saleOrderId;
-    }
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
 
-    public String getOrderDate() {
-        return orderDate;
-    }
+	public String getOrderId() {
+		return orderId;
+	}
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 
-    public String getCustomerCode() {
-        return customerCode;
-    }
+	public Date getOrderDate() {
+		return orderDate;
+	}
 
-    public void setCustomerCode(String customerCode) {
-        this.customerCode = customerCode;
-    }
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
 
-    public String getProductCode() {
-        return productCode;
-    }
+	public String getCustomerCode() {
+		return customerCode;
+	}
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
-    }
+	public void setCustomerCode(String customerCode) {
+		this.customerCode = customerCode;
+	}
 
-    public Integer getNumber() {
-        return number;
-    }
+	public String getProductCode() {
+		return productCode;
+	}
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
 
-    public Double getPrice() {
-        return price;
-    }
+	public Integer getNumber() {
+		return number;
+	}
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
 
-    public Double getAmount() {
-        return amount;
-    }
+	public Double getPrice() {
+		return price;
+	}
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
-    public String getMemo() {
-        return memo;
-    }
+	public Double getAmount() {
+		return amount;
+	}
 
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
 
-    @Override
-    protected Serializable pkVal() {
-        return this.serialId;
-    }
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return this.serialId;
+	}
 
 }

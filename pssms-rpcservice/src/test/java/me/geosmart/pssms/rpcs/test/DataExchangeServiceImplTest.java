@@ -30,9 +30,8 @@ public class DataExchangeServiceImplTest {
     @Test
     public void test_importSaleOrder() throws Exception {
         String filePath = "D:\\WorkSpace\\进销存系统\\excel数据\\201702可风各销售明细.xlsx";
-        dataExchangeService.importSaleOrder(filePath);
-//        dataExchangeService.importBackProduct(filePath);
-//        dataExchangeService.importBackOrder(filePath);
+//        dataExchangeService.importSaleOrder(filePath);
+        dataExchangeService.importBackOrder(filePath);
 //        dataExchangeService.importBackOrderLog(filePath);
     }
 
