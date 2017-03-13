@@ -15,6 +15,7 @@ import java.sql.Date;
  */
 public interface IStatisService {
 
+
     /**
      * 统计各货号销售额，和总销售额
      */
@@ -35,5 +36,5 @@ public interface IStatisService {
     /**
      * 导出统计结果
      */
-    void exportStatisResult(Date orderDateBegin, Date orderDateEnd, String filePath) throws Exception;
+    void exportStatisResult(Date orderDateBegin, Date orderDateEnd, String templatePath, String exportPath) throws Exception;
 }

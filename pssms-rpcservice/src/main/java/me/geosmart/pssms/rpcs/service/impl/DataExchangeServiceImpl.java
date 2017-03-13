@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import me.geosmart.pssms.rpcs.entity.TbBackOrder;
@@ -91,14 +93,16 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         titleMap = getTitleMap((XSSFRow) rows.next());
 
         XSSFRow row;
+        List saleOrders = new ArrayList();
         //行循环
         while (rows.hasNext()) {
             row = (XSSFRow) rows.next();
             TbSaleOrder saleOrder = getSaleOrder(row);
             if (saleOrder != null) {
-                saleOrderService.insert(saleOrder);
+                saleOrders.add(saleOrder);
             }
         }
+        saleOrderService.insertBatch(saleOrders, 1000);
     }
 
 
@@ -110,15 +114,17 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         Iterator rows = sheetSaleOrder.rowIterator();
         titleMap = getTitleMap((XSSFRow) rows.next());
 
+        List backOrders = new ArrayList();
         XSSFRow row;
         //行循环
         while (rows.hasNext()) {
             row = (XSSFRow) rows.next();
             TbBackOrder backOrder = getBackOrder(row);
             if (backOrder != null) {
-                backOrderService.insertOrUpdate(backOrder);
+                backOrders.add(backOrder);
             }
         }
+        backOrderService.insertBatch(backOrders, 1000);
     }
 
     @Override
@@ -129,22 +135,30 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         Iterator rows = sheetSaleOrder.rowIterator();
         titleMap = getTitleMap((XSSFRow) rows.next());
 
+        List backOrders = new ArrayList();
         XSSFRow row;
         //行循环
         while (rows.hasNext()) {
             row = (XSSFRow) rows.next();
             TbBackOrderLog backOrderLog = getBackOrderLog(row);
             if (backOrderLog != null) {
-                backOrderLogService.insert(backOrderLog);
+                backOrders.add(backOrderLog);
             }
         }
+        backOrderLogService.insertBatch(backOrders, 1000);
     }
 
     private TbSaleOrder getSaleOrder(XSSFRow row) throws Exception {
         JSONObject jsonEntity = getJsonEntityFromRow(row, saleOrderMap);
         TbSaleOrder tbSaleOrder = JSON.parseObject(jsonEntity.toJSONString(), TbSaleOrder.class);
 //        tbSaleOrder.setSerialId(SerialService.newSerialId().toString());
-        if (StringUtils.isBlank(tbSaleOrder.getProductCode())) {
+        if (StringUtils.isNotBlank(tbSaleOrder.getProductCode())) {
+            String productCode = tbSaleOrder.getProductCode();
+            if (productCode.contains(".")) {
+                productCode = productCode.split("\\.")[0];
+                tbSaleOrder.setProductCode(productCode);
+            }
+        } else {
             tbSaleOrder = null;
         }
         if (tbSaleOrder != null && StringUtils.isNotBlank(tbSaleOrder.getOrderType())) {

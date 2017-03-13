@@ -47,9 +47,10 @@ public class StatisServiceImpl implements IStatisService {
 
 
     @Override
-    public void exportStatisResult(Date orderDateBegin, Date orderDateEnd, String filePath) throws Exception {
-        FileInputStream fis = new FileInputStream(new java.io.File(filePath));
+    public void exportStatisResult(Date orderDateBegin, Date orderDateEnd, String templatePath, String exportPath) throws Exception {
+        FileInputStream fis = new FileInputStream(new java.io.File(templatePath));
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
+
         XSSFSheet saleAmountSheet = workbook.getSheetAt(0);
         if (saleAmountSheet.getSheetName().equals("月销售额")) {
             JSONObject saleOrderDate = statisSaleAmount(orderDateBegin, orderDateEnd, "1");
@@ -72,6 +73,7 @@ public class StatisServiceImpl implements IStatisService {
                 }
             });
         }
+
         XSSFSheet backRateSheet = workbook.getSheetAt(1);
         if (backRateSheet.getSheetName().equals("月退货率")) {
             JSONObject backRate = statisBackRate(orderDateBegin, orderDateEnd);
@@ -83,7 +85,7 @@ public class StatisServiceImpl implements IStatisService {
                 JSONObject bakeRateJson = (JSONObject) backRate.get(k1);
                 row.createCell(1).setCellValue(bakeRateJson.getIntValue("销售量"));
                 row.createCell(2).setCellValue(bakeRateJson.getIntValue("退货量"));
-                row.createCell(3).setCellValue(bakeRateJson.getDoubleValue("退货率")*100);
+                row.createCell(3).setCellValue(bakeRateJson.getDoubleValue("退货率"));
                 i[0]++;
             });
         }
@@ -122,7 +124,12 @@ public class StatisServiceImpl implements IStatisService {
 
         fis.close();
 
-        FileOutputStream fos = new FileOutputStream(new java.io.File(filePath));
+        //删除现有导出结果
+        if (new java.io.File(exportPath).exists()) {
+            new java.io.File(exportPath).delete();
+        }
+
+        FileOutputStream fos = new FileOutputStream(new java.io.File(exportPath));
         workbook.write(fos);
         fos.flush();
         fos.close();
@@ -152,7 +159,7 @@ public class StatisServiceImpl implements IStatisService {
         });
         statisData.put("productSaleAmount", productSaleAmountData);
         //统计总销售额
-        Double saleOrderSumAmount = saleOrderService.selectSumSaleAmount(orderDateBegin, orderDateEnd);
+        Double saleOrderSumAmount = saleOrderService.selectSumSaleAmount(orderDateBegin, orderDateEnd, "1");
         //统计退货单使用金额
         Double backOrderLogSumAmount = backOrderLogService.selectSumBackAmount(orderDateBegin, orderDateEnd);
         //纯销售额
@@ -173,7 +180,7 @@ public class StatisServiceImpl implements IStatisService {
     public JSONObject statisBackRate(Date orderDateBegin, Date orderDateEnd) throws Exception {
         //退货件数统计/总销售件数
         JSONObject rateJson = new JSONObject();
-        List<Map> backProductMapList = saleOrderService.groupNumberByProduct(orderDateBegin, orderDateEnd);
+        List<Map> backProductMapList = saleOrderService.groupNumberByProduct(orderDateBegin, orderDateEnd, null);
         backProductMapList.forEach(item -> {
             String productKey = null;
             String orderTypeKey = null;

@@ -25,11 +25,11 @@ public interface ITbSaleOrderService extends IService<TbSaleOrder> {
     /**
      * 总销售额
      */
-    Double selectSumSaleAmount(Date orderDateBegin, Date orderDateEnd);
+    Double selectSumSaleAmount(Date orderDateBegin, Date orderDateEnd,String orderType);
 
     /**
      * 每个货号的销售件数
      */
-    List groupNumberByProduct(Date orderDateBegin, Date orderDateEnd);
+    List groupNumberByProduct(Date orderDateBegin, Date orderDateEnd,String orderType);
 
 }

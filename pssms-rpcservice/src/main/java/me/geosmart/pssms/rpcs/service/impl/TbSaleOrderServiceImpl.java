@@ -29,12 +29,12 @@ public class TbSaleOrderServiceImpl extends ServiceImpl<TbSaleOrderMapper, TbSal
     }
 
     @Override
-    public Double selectSumSaleAmount(Date orderDateBegin, Date orderDateEnd) {
-        return baseMapper.selectSumSaleAmount(orderDateBegin, orderDateEnd);
+    public Double selectSumSaleAmount(Date orderDateBegin, Date orderDateEnd, String orderType) {
+        return baseMapper.selectSumSaleAmount(orderDateBegin, orderDateEnd, orderType);
     }
 
     @Override
-    public List groupNumberByProduct(Date orderDateBegin, Date orderDateEnd) {
-        return baseMapper.groupNumberByProduct(orderDateBegin, orderDateEnd);
+    public List groupNumberByProduct(Date orderDateBegin, Date orderDateEnd, String orderType) {
+        return baseMapper.groupNumberByProduct(orderDateBegin, orderDateEnd, orderType);
     }
 }

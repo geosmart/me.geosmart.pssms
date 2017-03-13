@@ -54,7 +54,7 @@ public class SaleOrderServiceTest {
     public void test_selectSumSaleAmount() throws Exception {
         Date sDate = DateUtil.getDate("2017-02-01");
         Date eDate = DateUtil.getDate("2017-03-01");
-        double amount = saleOrderService.selectSumSaleAmount(sDate, eDate);
+        double amount = saleOrderService.selectSumSaleAmount(sDate, eDate, "1");
         System.out.println(amount);
         assertNotNull(amount);
     }
@@ -63,7 +63,7 @@ public class SaleOrderServiceTest {
     public void test_groupByProduct() throws Exception {
         Date sDate = DateUtil.getDate("2017-02-01");
         Date eDate = DateUtil.getDate("2017-03-01");
-        List<Map> map = saleOrderService.groupAmountByProduct(sDate, eDate,"1");
+        List<Map> map = saleOrderService.groupAmountByProduct(sDate, eDate, "1");
         assertNotNull(map);
     }
 

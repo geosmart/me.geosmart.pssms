@@ -31,6 +31,16 @@ public class StatisServiceImplTest {
     @Autowired
     private IStatisService statisService;
 
+
+    @Test
+    public void test_export() throws Exception {
+        String templatePath = "D:\\WorkSpace\\进销存系统\\excel数据\\销售退货数据统计模版.xlsx";
+        String exportPath = "D:\\WorkSpace\\进销存系统\\excel数据\\201702销售退货数据统计（系统生成）.xlsx";
+        Date sDate = DateUtil.getDate("2017-02-01");
+        Date eDate = DateUtil.getDate("2017-03-01");
+        statisService.exportStatisResult(sDate, eDate, templatePath, exportPath);
+    }
+
     @Test
     public void test_statisSaleAmount() throws Exception {
         Date sDate = DateUtil.getDate("2017-02-01");
@@ -53,13 +63,5 @@ public class StatisServiceImplTest {
         Date eDate = DateUtil.getDate("2017-03-01");
         JSONArray findOrder = statisService.statisBackOrder(sDate, eDate, "0");
         System.out.println(JSON.toJSONString(findOrder, true));
-    }
-
-    @Test
-    public void test_export() throws Exception {
-        String filePath = "D:\\WorkSpace\\进销存系统\\excel数据\\201702销售统计.xlsx";
-        Date sDate = DateUtil.getDate("2017-02-01");
-        Date eDate = DateUtil.getDate("2017-03-01");
-        statisService.exportStatisResult(sDate, eDate, filePath);
     }
 }

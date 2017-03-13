@@ -28,10 +28,12 @@ public interface TbSaleOrderMapper extends BaseMapper<TbSaleOrder> {
     /**
      * 每个货号的销售件数
      */
-    List groupNumberByProduct(@Param("orderDateBegin") Date orderDateBegin, @Param("orderDateEnd") Date orderDateEnd);
+    List groupNumberByProduct(@Param("orderDateBegin") Date orderDateBegin, @Param("orderDateEnd") Date orderDateEnd,
+                              @Param("orderType") String orderType);
 
     /**
      * 总销售额
      */
-    Double selectSumSaleAmount(@Param("orderDateBegin") Date orderDateBegin, @Param("orderDateEnd") Date orderDateEnd);
+    Double selectSumSaleAmount(@Param("orderDateBegin") Date orderDateBegin, @Param("orderDateEnd") Date orderDateEnd,
+                               @Param("orderType") String orderType);
 }
