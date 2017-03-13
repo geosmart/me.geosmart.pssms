@@ -1,4 +1,4 @@
-package me.geosmart.pssms.rpcs.service;
+package me.geosmart.pssms.client.front.service;
 
 /**
  * <p>

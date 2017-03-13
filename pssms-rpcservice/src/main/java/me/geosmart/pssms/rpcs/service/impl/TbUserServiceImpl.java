@@ -1,10 +1,12 @@
 package me.geosmart.pssms.rpcs.service.impl;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+
+import org.springframework.stereotype.Component;
+
 import me.geosmart.pssms.rpcs.entity.TbUser;
 import me.geosmart.pssms.rpcs.mapper.TbUserMapper;
 import me.geosmart.pssms.rpcs.service.ITbUserService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author geosmart
  * @since 2017-03-11
  */
-@Service
+@Component
 public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> implements ITbUserService {
 	
 }

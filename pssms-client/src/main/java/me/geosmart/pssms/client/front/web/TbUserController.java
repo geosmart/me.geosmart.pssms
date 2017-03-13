@@ -1,18 +1,18 @@
-package me.geosmart.pssms.rpcs.web;
+package me.geosmart.pssms.client.front.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * <p>
- * 货品销售记录 前端控制器
+ * `用户表` 前端控制器
  * </p>
  *
  * @author geosmart
  * @since 2017-03-11
  */
 @Controller
-@RequestMapping("/rpcs/tbSaleOrder")
-public class TbSaleOrderController {
+@RequestMapping("/rpcs/tbUser")
+public class TbUserController {
 	
 }

@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("me.geosmart.pssms.rpcs.mapper*")
-public class SpringbootApplication {
+public class SpringbootApp {
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootApplication.class, args);
+        SpringApplication.run(SpringbootApp.class, args);
     }
 }

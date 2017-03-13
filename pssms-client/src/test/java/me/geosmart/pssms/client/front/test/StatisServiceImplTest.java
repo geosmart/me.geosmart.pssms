@@ -1,4 +1,4 @@
-package me.geosmart.pssms.rpcs.test;
+package me.geosmart.pssms.client.front.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -13,8 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Date;
 
-import me.geosmart.pssms.rpcs.SpringbootApplication;
-import me.geosmart.pssms.rpcs.service.IStatisService;
+import me.geosmart.pssms.Application;
+import me.geosmart.pssms.client.front.service.IDataExchangeService;
+import me.geosmart.pssms.client.front.service.IStatisService;
 import me.geosmart.pssms.rpcs.util.DateUtil;
 
 /**
@@ -24,13 +25,15 @@ import me.geosmart.pssms.rpcs.util.DateUtil;
  * @date 2017-3-8
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringbootApplication.class)
+@SpringApplicationConfiguration(Application.class)
 public class StatisServiceImplTest {
     Logger logger = Logger.getLogger(StatisServiceImplTest.class.getName());
 
     @Autowired
     private IStatisService statisService;
 
+    @Autowired
+    private IDataExchangeService dataExchangeService;
 
     @Test
     public void test_export() throws Exception {

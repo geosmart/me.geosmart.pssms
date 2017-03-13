@@ -2,7 +2,7 @@ package me.geosmart.pssms.rpcs.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.util.List;
@@ -20,7 +20,7 @@ import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
  * @author geosmart
  * @since 2017-03-11
  */
-@Service
+@Component
 public class TbSaleOrderServiceImpl extends ServiceImpl<TbSaleOrderMapper, TbSaleOrder> implements ITbSaleOrderService {
 
     @Override

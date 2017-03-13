@@ -1,4 +1,4 @@
-package me.geosmart.pssms.rpcs.web;
+package me.geosmart.pssms.client.front.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

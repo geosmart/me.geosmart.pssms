@@ -2,7 +2,7 @@ package me.geosmart.pssms.rpcs.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 
@@ -18,7 +18,7 @@ import me.geosmart.pssms.rpcs.service.ITbBackOrderLogService;
  * @author geosmart
  * @since 2017-03-11
  */
-@Service
+@Component
 public class TbBackOrderLogServiceImpl extends ServiceImpl<TbBackOrderLogMapper, TbBackOrderLog> implements ITbBackOrderLogService {
 
     @Override

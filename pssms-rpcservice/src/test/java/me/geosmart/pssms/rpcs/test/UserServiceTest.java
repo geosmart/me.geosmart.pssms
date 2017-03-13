@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import me.geosmart.pssms.rpcs.SpringbootApplication;
+import me.geosmart.pssms.rpcs.SpringbootApp;
 import me.geosmart.pssms.rpcs.entity.TbUser;
 import me.geosmart.pssms.rpcs.service.ITbUserService;
 
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
  * @date 2017-3-8
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringbootApplication.class)
+@SpringApplicationConfiguration(SpringbootApp.class)
 public class UserServiceTest {
     Logger logger = Logger.getLogger(UserServiceTest.class.getName());
 

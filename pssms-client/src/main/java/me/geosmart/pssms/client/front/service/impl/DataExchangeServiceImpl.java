@@ -1,4 +1,4 @@
-package me.geosmart.pssms.rpcs.service.impl;
+package me.geosmart.pssms.client.front.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -20,10 +20,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import me.geosmart.pssms.client.front.service.IDataExchangeService;
 import me.geosmart.pssms.rpcs.entity.TbBackOrder;
 import me.geosmart.pssms.rpcs.entity.TbBackOrderLog;
 import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
-import me.geosmart.pssms.rpcs.service.IDataExchangeService;
 import me.geosmart.pssms.rpcs.service.ITbBackOrderLogService;
 import me.geosmart.pssms.rpcs.service.ITbBackOrderService;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
@@ -151,7 +151,6 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
     private TbSaleOrder getSaleOrder(XSSFRow row) throws Exception {
         JSONObject jsonEntity = getJsonEntityFromRow(row, saleOrderMap);
         TbSaleOrder tbSaleOrder = JSON.parseObject(jsonEntity.toJSONString(), TbSaleOrder.class);
-//        tbSaleOrder.setSerialId(SerialService.newSerialId().toString());
         if (StringUtils.isNotBlank(tbSaleOrder.getProductCode())) {
             String productCode = tbSaleOrder.getProductCode();
             if (productCode.contains(".")) {
@@ -209,7 +208,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                     cellValue = sdf.format(cellValue);
                 } catch (Exception e) {
-                    System.out.println("日期解析异常：" + cellValue);
+                    System.out.println("日期解析异常，rowNum<" + row.getRowNum() + ">,cellValue<" + cellValue + ">");
                 }
             } else if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC || cell.getCellType() == XSSFCell.CELL_TYPE_FORMULA) {
                 cellValue = cell.getNumericCellValue();

@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
-import me.geosmart.pssms.rpcs.SpringbootApplication;
+import me.geosmart.pssms.rpcs.SpringbootApp;
 import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
 import me.geosmart.pssms.rpcs.util.DateUtil;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertNotNull;
  * @date 2017-3-8
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringbootApplication.class)
+@SpringApplicationConfiguration(SpringbootApp.class)
 public class SaleOrderServiceTest {
     Logger logger = Logger.getLogger(SaleOrderServiceTest.class.getName());
 
