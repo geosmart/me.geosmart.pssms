@@ -17,6 +17,8 @@ import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
  * @since 2017-03-11
  */
 public interface ITbSaleOrderService extends IService<TbSaleOrder> {
+    List querySaleOrder(Date orderDateBegin, Date orderDateEnd, String orderType, String product_code);
+
     /**
      * 每个货号的销售额
      */

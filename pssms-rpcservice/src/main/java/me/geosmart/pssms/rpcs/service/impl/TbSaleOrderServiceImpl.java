@@ -1,7 +1,10 @@
 package me.geosmart.pssms.rpcs.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -22,6 +25,19 @@ import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
  */
 @Component
 public class TbSaleOrderServiceImpl extends ServiceImpl<TbSaleOrderMapper, TbSaleOrder> implements ITbSaleOrderService {
+
+    @Override
+    public List querySaleOrder(Date orderDateBegin, Date orderDateEnd, String orderType, String product_code) {
+        int pageNumber = 0;
+        int pageSize = 10;
+        int offset = pageNumber * pageNumber;
+        RowBounds rowBounds = new RowBounds(offset, pageSize);
+        Wrapper<TbSaleOrder> ew = new EntityWrapper<>();
+        ew.like("order_Type", orderType).like("product_type", product_code).
+                andNew("order_date >= '{0}' and order_date <= '{1}'", orderDateBegin, orderDateEnd)
+                .orderBy("order_date desc");
+        return baseMapper.selectPage(rowBounds, ew);
+    }
 
     @Override
     public List<Map> groupAmountByProduct(Date orderDateBegin, Date orderDateEnd, String orderType) {
