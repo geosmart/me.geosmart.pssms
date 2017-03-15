@@ -33,7 +33,7 @@ public class TbSaleOrderServiceImpl extends ServiceImpl<TbSaleOrderMapper, TbSal
         int offset = pageNumber * pageNumber;
         RowBounds rowBounds = new RowBounds(offset, pageSize);
         Wrapper<TbSaleOrder> ew = new EntityWrapper<>();
-        ew.like("order_Type", orderType).like("product_type", product_code).
+        ew.like("order_Type", orderType).like("product_code", product_code).
                 andNew("order_date >= '{0}' and order_date <= '{1}'", orderDateBegin, orderDateEnd)
                 .orderBy("order_date desc");
         return baseMapper.selectPage(rowBounds, ew);

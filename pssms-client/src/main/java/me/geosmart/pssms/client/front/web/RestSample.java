@@ -2,7 +2,6 @@ package me.geosmart.pssms.client.front.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
@@ -21,8 +20,8 @@ import me.geosmart.pssms.rpcs.util.DateUtil;
  * @since 2017-03-11
  */
 @RestController
-@RequestMapping("/saleOrder")
-public class TbSaleOrderController {
+@RequestMapping("/demo")
+public class RestSample {
 
     @Autowired
     private ITbSaleOrderService saleOrderService;
@@ -30,10 +29,10 @@ public class TbSaleOrderController {
     /**
      * 分页查询
      */
-    @RequestMapping("/query")
-    public List<TbSaleOrder> test3(@RequestParam("product_code") String product_code) {
+    @RequestMapping("/test")
+    public List<TbSaleOrder> test3() {
         Date sDate = DateUtil.getDate("2017-02-01");
         Date eDate = DateUtil.getDate("2017-03-01");
-        return saleOrderService.querySaleOrder(sDate, eDate, "1", product_code);
+        return saleOrderService.querySaleOrder(sDate, eDate, "1", "123");
     }
 }

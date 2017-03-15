@@ -2,52 +2,59 @@ package me.geosmart.pssms.client.front.test;
 
 import com.alibaba.fastjson.JSONObject;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.internal.matchers.Equals;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import io.restassured.RestAssured;
+import io.restassured.matcher.ResponseAwareMatcher;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import me.geosmart.pssms.Application;
 
+import static io.restassured.RestAssured.given;
 
-@RunWith(SpringJUnit4ClassRunner.class)   //1.
-@SpringBootTest(classes = Application.class, webEnvironment= WebEnvironment.RANDOM_PORT )   // 2.SpringBoot入口类,配置起server随机端口
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 public class RestTest {
 
-	@Value("${local.server.port}")   //3
+    @Value("${local.server.port}")
     int port;
 
     @Before
-    public void doBefore(){
-
-//        RestAssured.port = port;//4: 告诉restAssured使用哪个端口来访问
+    public void doBefore() {
+        RestAssured.port = port;
     }
-    
+
     @Test
-    public void postTest(){
+    public void getTest() {
+        given().queryParam("product_code", "6021+").get("/saleOrder/query").prettyPrint();
+    }
+
+    @Test
+    public void postTest() {
         JSONObject parm = new JSONObject();
-        parm.put("userId", "your id");
-        parm.put("name", "your name");
-//        ValidatableResponse response = (ValidatableResponse) given().contentType("application/json")
-//        .request().body(parm.toJSONString())
-//        .when().post("/user/test1").then()
-//        //断言，类似Assert
-//        .body("id", new Equals(1))
-//        //可以接多个断言
-//        .body("name", new ResponseAwareMatcher<Response>() {
-//			@Override
-//			public Matcher<?> matcher(Response response) throws Exception {
-//				return new Equals("三毛");
-//			}
-//		})
-//        ;
-//        JSONObject json = JSONObject.parseObject(response.extract().asString());//获取返回的json数据(2)
-        //自己写一些代码
-//        System.out.println(json);
-        
+        parm.put("product_code", "6021");
+        ValidatableResponse response = (ValidatableResponse) given().contentType("application/json")
+                .request().body(parm.toJSONString()).when().post("/rpcs/tbSaleOrder").then()
+                //断言，类似Assert
+                .body("product_code", new Equals("6021"))
+                //可以接多个断言
+                .body("name", new ResponseAwareMatcher<Response>() {
+                    @Override
+                    public Matcher<?> matcher(Response response) throws Exception {
+                        return new Equals("三毛");
+                    }
+                });
+        JSONObject json = JSONObject.parseObject(response.extract().asString());//获取返回的json数据(2)
+        System.out.println(json);
+
     }
 }
 

@@ -53,7 +53,7 @@ public abstract class BaseEntity<T extends BaseEntity> extends Model<T> {
         this.creationTime = creationTime;
     }
 
-    public String getCreationTimeString() {
+    private String getCreationTimeString() {
         if (creationTime == null || creationTime.getTime() == 0) {
             return "-";
         } else {
