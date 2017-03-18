@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">销售订单</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">销售订单</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" id="tbxOrderId" class="form-control" placeholder="单号">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="tbxProductCode" class="form-control" placeholder="货号">
+                </div>
+                <button type="button" id="btnSaleOrderQuery" class="btn btn-default">查询</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="row">
+    <table id="table">
+        <thead>
+        <tr>
+            <th data-field="orderDate">订单时间</th>
+            <th data-field="orderId">订单编号</th>
+            <th data-field="customerCode">客户</th>
+            <th data-field="productCode">产品编号</th>
+            <th data-field="price">价格</th>
+            <th data-field="number">数量</th>
+            <th data-field="amount">金额</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<!-- /.row -->

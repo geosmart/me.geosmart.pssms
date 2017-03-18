@@ -21,7 +21,7 @@ import me.geosmart.pssms.rpcs.util.DateUtil;
  * @since 2017-03-11
  */
 @RestController
-@RequestMapping("/saleOrder")
+@RequestMapping("/api/saleOrder")
 public class TbSaleOrderController {
 
     @Autowired

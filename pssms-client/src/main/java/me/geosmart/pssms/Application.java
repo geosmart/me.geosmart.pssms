@@ -3,9 +3,11 @@ package me.geosmart.pssms;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * @author Siva
+ * @author geosmart
  */
 @SpringBootApplication
 //@EnableAutoConfiguration
@@ -13,8 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@ComponentScan("me.geosmart.pssms.rpcs.service")
 //@ComponentScan("me.demo.pssms.client.front.service")
 //@ComponentScan("me.demo.pssms.client.front.web")
-//@Configuration
-//@ComponentScan
+@Configuration
+@ComponentScan
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

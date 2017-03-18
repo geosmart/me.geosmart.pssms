@@ -54,7 +54,6 @@ public class RestTest {
                 });
         JSONObject json = JSONObject.parseObject(response.extract().asString());//获取返回的json数据(2)
         System.out.println(json);
-
     }
 }
 
