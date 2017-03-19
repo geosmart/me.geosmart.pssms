@@ -1,5 +1,14 @@
 //The following code structure is mandatory
 
+$(document).ajaxSend(function () {
+    $(".btn-lg").show();
+});
+
+$(document).ajaxComplete(function () {
+    $(".btn-lg").hide();
+});
+
+
 //default partial page, which will be loaded initially
 var home = {};
 home.partial = "../tmpl/home.html";

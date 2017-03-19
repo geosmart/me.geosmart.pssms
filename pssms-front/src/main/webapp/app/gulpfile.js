@@ -49,6 +49,9 @@ gulp.task('minify-js', ['js'], function() {
 
 // Copy vendor libraries from /node_modules into /vendor
 gulp.task('copy', function() {
+    gulp.src(['node_modules/bootstrap-datepicker/dist/**/*'])
+        .pipe(gulp.dest('vendor/bootstrap-datepicker'))
+
     gulp.src(['node_modules/bootstrap-table/dist/*'])
         .pipe(gulp.dest('vendor/bootstrap-table'))
 

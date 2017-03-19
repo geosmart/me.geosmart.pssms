@@ -1,16 +1,20 @@
 package me.geosmart.pssms.client.front.web;
 
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.plugins.Page;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
-import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
+import me.geosmart.pssms.client.front.web.DTO.SaleOrderQueryDTO;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
-import me.geosmart.pssms.rpcs.util.DateUtil;
 
 /**
  * <p>
@@ -25,15 +29,23 @@ import me.geosmart.pssms.rpcs.util.DateUtil;
 public class TbSaleOrderController {
 
     @Autowired
-    private ITbSaleOrderService saleOrderService;
+    ITbSaleOrderService saleOrderService;
 
     /**
      * 分页查询
      */
-    @RequestMapping("/query")
-    public List<TbSaleOrder> test3(@RequestParam("product_code") String product_code) {
-        Date sDate = DateUtil.getDate("2017-02-01");
-        Date eDate = DateUtil.getDate("2017-03-01");
-        return saleOrderService.querySaleOrder(sDate, eDate, "1", product_code);
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    public Page test3(@RequestBody SaleOrderQueryDTO input) {
+        int pageNumber = input.getPageNumber();
+        int pageSize = input.getPageSize();
+        String orderType = input.getOrderType();
+        String productType = input.getProductCode();
+        Date beginDate = input.getBeginDate();
+        Date endDate = input.getEndDate();
+        String customerCode = input.getCustomerCode();
+        Page objs = saleOrderService.querySaleOrder(pageNumber, pageSize, beginDate, endDate, orderType, productType, customerCode);
+        List jsonObjs = JSON.parseArray(JSON.toJSONString(objs.getRecords()), Map.class);
+        objs.setRecords(jsonObjs);
+        return objs;
     }
 }

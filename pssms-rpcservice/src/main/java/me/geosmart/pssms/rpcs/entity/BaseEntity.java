@@ -3,6 +3,7 @@
  */
 package me.geosmart.pssms.rpcs.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 
@@ -16,9 +17,11 @@ import java.util.Date;
  * @date 2017-3-8
  */
 public abstract class BaseEntity<T extends BaseEntity> extends Model<T> {
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField("creation_time")
     Date creationTime;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField("last_modified_time")
     Date lastModifiedTime;
 

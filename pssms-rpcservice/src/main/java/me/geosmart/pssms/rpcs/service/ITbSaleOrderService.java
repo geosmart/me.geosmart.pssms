@@ -1,5 +1,6 @@
 package me.geosmart.pssms.rpcs.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.sql.Date;
@@ -17,21 +18,22 @@ import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
  * @since 2017-03-11
  */
 public interface ITbSaleOrderService extends IService<TbSaleOrder> {
-    List querySaleOrder(Date orderDateBegin, Date orderDateEnd, String orderType, String product_code);
+
+    Page<TbSaleOrder> querySaleOrder(int pageNumber, int pageSize, Date orderDateBegin, Date orderDateEnd, String orderType, String product_code, String customerCode);
 
     /**
      * 每个货号的销售额
      */
-    List<Map> groupAmountByProduct(Date orderDateBegin, Date orderDateEnd,String orderType);
+    List<Map> groupAmountByProduct(Date orderDateBegin, Date orderDateEnd, String orderType);
 
     /**
      * 总销售额
      */
-    Double selectSumSaleAmount(Date orderDateBegin, Date orderDateEnd,String orderType);
+    Double selectSumSaleAmount(Date orderDateBegin, Date orderDateEnd, String orderType);
 
     /**
      * 每个货号的销售件数
      */
-    List groupNumberByProduct(Date orderDateBegin, Date orderDateEnd,String orderType);
+    List groupNumberByProduct(Date orderDateBegin, Date orderDateEnd, String orderType);
 
 }

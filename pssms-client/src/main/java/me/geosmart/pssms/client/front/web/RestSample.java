@@ -1,11 +1,12 @@
 package me.geosmart.pssms.client.front.web;
 
+import com.baomidou.mybatisplus.plugins.Page;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
-import java.util.List;
 
 import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
@@ -30,9 +31,9 @@ public class RestSample {
      * 分页查询
      */
     @RequestMapping("/test")
-    public List<TbSaleOrder> test3() {
+    public Page<TbSaleOrder> test3() {
         Date sDate = DateUtil.getDate("2017-02-01");
         Date eDate = DateUtil.getDate("2017-03-01");
-        return saleOrderService.querySaleOrder(sDate, eDate, "1", "123");
+        return saleOrderService.querySaleOrder(0, 10, sDate, eDate, "1", "123", "散客");
     }
 }

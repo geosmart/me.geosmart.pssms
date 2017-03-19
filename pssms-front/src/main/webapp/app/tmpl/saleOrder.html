@@ -1,31 +1,38 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">销售订单</h1>
+        <h3 class="page-header">销售订单</h3>
     </div>
     <!-- /.col-lg-12 -->
 </div>
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">销售订单</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left">
                 <div class="form-group">
-                    <input type="text" id="tbxOrderId" class="form-control" placeholder="单号">
+                    <input id="tbxBeginDate" data-provide="datepicker" data-date-format="yyyy-mm-dd" class="form-control" placeholder="开始时间">
                 </div>
                 <div class="form-group">
-                    <input type="text" id="tbxProductCode" class="form-control" placeholder="货号">
+                    <input id="tbxEndDate" data-provide="datepicker" data-date-format="yyyy-mm-dd" class="form-control" placeholder="结束时间">
+                </div>
+            </form>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input id="tbxCustomerCode" type="text" class="form-control" placeholder="客户">
+                </div>
+                <div class="form-group">
+                    <input id="tbxOrderId" type="text" class="form-control" placeholder="单号">
+                </div>
+                <div class="form-group">
+                    <input id="tbxProductCode" type="text" class="form-control" placeholder="货号">
                 </div>
                 <button type="button" id="btnSaleOrderQuery" class="btn btn-default">查询</button>
             </form>
-        </div>
     </div>
 </nav>
+
+<button class="btn btn-default btn-lg center-block hide"><i class="fa fa-circle-o-notch fa-spin"></i> 数据加载中...</button>
 
 <div class="row">
     <table id="table">
