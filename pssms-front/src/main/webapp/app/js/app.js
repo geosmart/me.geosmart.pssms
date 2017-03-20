@@ -3,22 +3,22 @@ var saleOrderQuery = {};
 saleOrderQuery.partial = "../tmpl/saleOrder.html";
 saleOrderQuery.init = function () {
     console.log("init page:saleOrderQuery");
-    $("#tbxProductCode").val("6025");
-    // saleOrderQuery.request("6025");
+    saleOrderQuery.request();
     $("#btnSaleOrderQuery").click(function () {
+        var orderType = $("#selectOrderType").val();
         var beginDate = $("#tbxBeginDate").val();
         var endDate = $("#tbxEndDate").val();
         var orderId = $("#tbxOrderId").val();
         var productCode = $("#tbxProductCode").val();
         var customerCode = $("#tbxCustomerCode").val();
-        saleOrderQuery.request(beginDate, endDate, orderId, productCode, customerCode);
+        saleOrderQuery.request(orderType, beginDate, endDate, orderId, productCode, customerCode);
     })
 };
-saleOrderQuery.request = function (beginDate, endDate, orderId, productCode, customerCode) {
+saleOrderQuery.request = function (orderType, beginDate, endDate, orderId, productCode, customerCode) {
     var queryObj = {
         pageNumber: 1,
         pageSize: 5000,
-        orderType: 1,
+        orderType: orderType,
         beginDate: beginDate,
         endDate: endDate,
         productCode: orderId,
@@ -37,8 +37,7 @@ saleOrderQuery.request = function (beginDate, endDate, orderId, productCode, cus
                 }
                 else {
                     //TOTO 重复渲染有问题
-                    $('#table').bootstrapTable('destroy');
-                    $('#table').bootstrapTable(
+                    $('#table').bootstrapTable('destroy').bootstrapTable(
                         {
                             data: res.records,
                             totalRows: res.total,

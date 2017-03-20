@@ -7,28 +7,35 @@
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input id="tbxBeginDate" data-provide="datepicker" data-date-format="yyyy-mm-dd" class="form-control" placeholder="开始时间">
-                </div>
-                <div class="form-group">
-                    <input id="tbxEndDate" data-provide="datepicker" data-date-format="yyyy-mm-dd" class="form-control" placeholder="结束时间">
-                </div>
-            </form>
+        <form class="navbar-form navbar-left">
+            <div class="form-group">
+                <input id="tbxBeginDate" data-provide="datepicker" data-date-format="yyyy-mm-dd" class="form-control" placeholder="开始时间">
+            </div>
+            <div class="form-group">
+                <input id="tbxEndDate" data-provide="datepicker" data-date-format="yyyy-mm-dd" class="form-control" placeholder="结束时间">
+            </div>
+        </form>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input id="tbxCustomerCode" type="text" class="form-control" placeholder="客户">
-                </div>
-                <div class="form-group">
-                    <input id="tbxOrderId" type="text" class="form-control" placeholder="单号">
-                </div>
-                <div class="form-group">
-                    <input id="tbxProductCode" type="text" class="form-control" placeholder="货号">
-                </div>
-                <button type="button" id="btnSaleOrderQuery" class="btn btn-default">查询</button>
-            </form>
+        <form class="navbar-form navbar-left">
+            <div class="form-group">
+                <input id="tbxCustomerCode" type="text" class="form-control" placeholder="客户">
+            </div>
+            <div class="form-group">
+                <input id="tbxOrderId" type="text" class="form-control" placeholder="单号">
+            </div>
+
+            <div class="form-group">
+                <select class="form-control" id="selectOrderType">
+                    <option value="">所有</option>
+                    <option value="1">销售</option>
+                    <option value="-1">退货</option>
+                </select>
+                <input id="tbxProductCode" type="text" class="form-control" placeholder="货号">
+            </div>
+
+            <button type="button" id="btnSaleOrderQuery" class="btn btn-default">查询</button>
+        </form>
     </div>
 </nav>
 
@@ -39,6 +46,7 @@
         <thead>
         <tr>
             <th data-field="orderDate">订单时间</th>
+            <th data-field="orderType">订单类型</th>
             <th data-field="orderId">订单编号</th>
             <th data-field="customerCode">客户</th>
             <th data-field="productCode">产品编号</th>
