@@ -1,5 +1,6 @@
 package me.geosmart.pssms.rpcs.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.sql.Date;
@@ -20,7 +21,10 @@ public interface ITbBackOrderService extends IService<TbBackOrder> {
     /**
      * 查询退单使用情况
      *
-     * @param back_order_status 使用情况 （0-未使用，1-已使用）
+     * @param backOrderStatus 使用情况 （0-未使用，1-已使用）
      */
+    Page<TbBackOrder> queryBackOrder(int pageNumber, int pageSize, Date beginDate, Date endDate, String customerCode, String backOrderStatus, String backOrderId);
+
     List<TbBackOrder> selectBackOrderByStatus(Date orderDateBegin, Date orderDateEnd, String back_order_status);
+
 }

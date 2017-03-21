@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 //@EnableAutoConfiguration
 @MapperScan("me.geosmart.pssms.rpcs.mapper*")
-//@ComponentScan("me.geosmart.pssms.rpcs.service")
-//@ComponentScan("me.demo.pssms.client.front.service")
-//@ComponentScan("me.demo.pssms.client.front.web")
 @Configuration
 @ComponentScan
 public class Application {

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h3 class="page-header">销售订单</h3>
+        <h3 class="page-header">退货单记录</h3>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -21,20 +21,17 @@
             <div class="form-group">
                 <input id="tbxCustomerCode" type="text" class="form-control" placeholder="客户">
             </div>
-            <div class="form-group">
-                <input id="tbxOrderId" type="text" class="form-control" placeholder="单号">
-            </div>
 
             <div class="form-group">
-                <select class="form-control" id="selectOrderType">
+                <select class="form-control" id="selectBackOrderStatus">
                     <option value="">所有</option>
-                    <option value="1">销售</option>
-                    <option value="-1">退货</option>
+                    <option value="0">未使用</option>
+                    <option value="1">已使用</option>
                 </select>
-                <input id="tbxProductCode" type="text" class="form-control" placeholder="货号">
+                <input id="tbxBackOrderId" type="text" class="form-control" placeholder="退单号">
             </div>
 
-            <button type="button" id="btnSaleOrderQuery" class="btn btn-default">查询</button>
+            <button type="button" id="btnBackOrderQuery" class="btn btn-default">查询</button>
         </form>
     </div>
 </nav>
@@ -42,17 +39,16 @@
 <button class="btn btn-default btn-lg center-block hide"><i class="fa fa-circle-o-notch fa-spin"></i> 数据加载中...</button>
 
 <div class="row">
-    <table id="tableSaleOrder">
+    <table id="tableBackOrder">
         <thead>
         <tr>
             <th data-field="orderDate">订单时间</th>
-            <th data-field="orderType">订单类型</th>
-            <th data-field="orderId">订单编号</th>
+            <th data-field="backOrderStatus">退单使用情况</th>
+            <th data-field="backOrderId">退单号</th>
+            <th data-field="parentBackOrderId">父退单号</th>
             <th data-field="customerCode">客户</th>
-            <th data-field="productCode">产品编号</th>
-            <th data-field="price">价格</th>
-            <th data-field="number">数量</th>
-            <th data-field="amount">金额</th>
+            <th data-field="amount">退单金额</th>
+            <th data-field="memo">备注</th>
         </tr>
         </thead>
     </table>
