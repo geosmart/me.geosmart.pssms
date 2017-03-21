@@ -28,7 +28,7 @@ saleOrderQuery.request = function (orderType, beginDate, endDate, orderId, produ
     $.ajax(
         {
             type: "POST",
-            url: "http://localhost:8080/api/saleOrder/query",
+            url: api.saleOrderQuery,
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(queryObj),
             success: function (res) {
@@ -39,7 +39,6 @@ saleOrderQuery.request = function (orderType, beginDate, endDate, orderId, produ
                     //TOTO 重复渲染有问题
                     $('#tableSaleOrder').bootstrapTable('destroy').bootstrapTable(
                         {
-                            locale: "ZH-CN",
                             data: res.records,
                             totalRows: res.total,
                             pagination: true,

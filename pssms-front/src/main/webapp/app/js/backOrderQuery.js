@@ -26,7 +26,7 @@ backOrderQuery.request = function (beginDate, endDate, backOrderId, backOrderSta
     $.ajax(
         {
             type: "POST",
-            url: "http://localhost:8080/api/backOrder/query",
+            url: api.backOrderQuery,
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(queryObj),
             success: function (res) {
@@ -37,14 +37,13 @@ backOrderQuery.request = function (beginDate, endDate, backOrderId, backOrderSta
                     //TOTO 重复渲染有问题
                     $('#tableBackOrder').bootstrapTable('destroy').bootstrapTable(
                         {
-                            locale: "ZH-CN",
                             data: res.records,
                             totalRows: res.total,
                             pagination: true,
                             pageSize: 10,
                             sidePagination: "client",
                             pageList: [10, 20, 50, 100, 200]
-                        });
+                        }).show();
                 }
             },
             error: function (err) {

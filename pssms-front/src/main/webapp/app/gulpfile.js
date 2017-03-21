@@ -49,14 +49,17 @@ gulp.task('minify-js', ['js'], function() {
 
 // Copy vendor libraries from /node_modules into /vendor
 gulp.task('copy', function() {
+    gulp.src(['node_modules/echarts/dist/**/*'])
+        .pipe(gulp.dest('vendor/echarts'));
+
     gulp.src(['node_modules/bootstrap-datepicker/dist/**/*'])
-        .pipe(gulp.dest('vendor/bootstrap-datepicker'))
+        .pipe(gulp.dest('vendor/bootstrap-datepicker'));
 
     gulp.src(['node_modules/bootstrap-table/dist/*'])
-        .pipe(gulp.dest('vendor/bootstrap-table'))
+        .pipe(gulp.dest('vendor/bootstrap-table'));
 
     gulp.src(['node_modules/bootstrap/dist/**/*', '!**/npm.js', '!**/bootstrap-theme.*', '!**/*.map'])
-        .pipe(gulp.dest('vendor/bootstrap'))
+        .pipe(gulp.dest('vendor/bootstrap'));
 
     gulp.src(['node_modules/bootstrap-social/*.css', 'node_modules/bootstrap-social/*.less', 'node_modules/bootstrap-social/*.scss'])
         .pipe(gulp.dest('vendor/bootstrap-social'))

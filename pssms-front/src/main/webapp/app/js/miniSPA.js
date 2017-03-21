@@ -8,7 +8,6 @@ $(document).ajaxComplete(function () {
     $(".btn-lg").hide();
 });
 
-
 //default partial page, which will be loaded initially
 var home = {};
 home.partial = "../tmpl/home.html";
