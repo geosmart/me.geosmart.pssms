@@ -50,4 +50,4 @@ backOrderQuery.request = function (beginDate, endDate, backOrderId, backOrderSta
                 console.log(err);
             }
         });
-}
+};

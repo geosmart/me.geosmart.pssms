@@ -23,18 +23,12 @@ notfound.init = function () {
     alert('URL does not exist. please check your code. You may also try manually inputing some other invalid url to get here.');
 }
 
-//global parameters
-var settings = {};
-//cache for partial pages
-settings.partialCache = {};
-//div for loading partials
-settings.divDemo = document.getElementById("page-wrapper");
 
 var miniSPA = {};
 
 miniSPA.render = function (url) {
     settings.rootScope = window[url];
-    miniSPA.refresh(settings.divDemo, settings.rootScope);
+    miniSPA.refresh(settings.mainContent, settings.rootScope);
 }
 
 miniSPA.changeUrl = function () {          //handle url change
@@ -49,12 +43,12 @@ miniSPA.changeUrl = function () {          //handle url change
         if (status == 404) {
             url = 'notfound';       //404 page
             miniSPA.ajaxRequest(window[url].partial, 'GET', '', function (status, page404) {
-                settings.divDemo.innerHTML = page404;
+                settings.mainContent.innerHTML = page404;
                 miniSPA.initFunc(url);              //load 404 controller
             });
         }
         else {
-            settings.divDemo.innerHTML = page;
+            settings.mainContent.innerHTML = page;
             miniSPA.initFunc(url);              //load url controller
         }
     });

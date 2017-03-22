@@ -52,4 +52,4 @@ saleOrderQuery.request = function (orderType, beginDate, endDate, orderId, produ
                 console.log(err);
             }
         });
-}
+};
