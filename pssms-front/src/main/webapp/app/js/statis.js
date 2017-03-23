@@ -3,32 +3,65 @@ var statis = {};
 statis.partial = "../tmpl/statis.html";
 statis.init = function () {
     console.log("init page:statis");
-    // var echarts = require('echarts');
-// 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('divStatis'));
+    $("#btnSaleOrderStatis").click(function () {
+        var orderType = $("#selectOrderType").val();
+        var beginDate = $("#tbxBeginDate").val();
+        var endDate = $("#tbxEndDate").val();
+        statis.saleOrderStatis(orderType, beginDate, endDate);
+    })
+};
 
-// 指定图表的配置项和数据
-    var option = {
-        title: {
-            text: 'ECharts Demo'
-        },
-        tooltip: {},
-        legend: {
-            data: ['销量']
-        },
-        xAxis: {
-            data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-        },
-        yAxis: {},
-        series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-        }]
+statis.saleOrderStatis = function (orderType, beginDate, endDate) {
+    var queryObj = {
+        pageNumber: 1,
+        pageSize: 5000,
+        orderType: orderType,
+        beginDate: beginDate,
+        endDate: endDate
     };
-
-// 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+    $.ajax(
+        {
+            type: "POST",
+            url: api.saleOrderStatis,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(queryObj),
+            success: function (res) {
+                console.log(res);
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('divStatis'));
+                // res.saleOrderSumAmount backOrderLogSumAmount netSaleAmount
+                var xAxisData = [];
+                var seriesData = [];
+                $(res.productSaleAmount).each(function (index, item) {
+                    $.map(item, function (value, key) {
+                        xAxisData.push(key);
+                        seriesData.push(value);
+                    });
+                });
+                var option = {
+                    title: {
+                        text: '货号-销售金额统计图'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: ['销量']
+                    },
+                    xAxis: {
+                        data: xAxisData
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '销量',
+                        type: 'bar',
+                        data: seriesData
+                    }]
+                };
+                myChart.setOption(option);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
 };
 
 

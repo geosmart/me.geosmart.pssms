@@ -1,2 +1,22 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <form class="navbar-form navbar-left">
+            <div class="form-group">
+                <input id="tbxBeginDate" data-provide="datepicker" data-date-format="yyyy-mm-dd" class="form-control" placeholder="开始时间">
+            </div>
+            <div class="form-group">
+                <input id="tbxEndDate" data-provide="datepicker" data-date-format="yyyy-mm-dd" class="form-control" placeholder="结束时间">
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="selectOrderType">
+                    <option value="1">销售</option>
+                    <option value="-1">退货</option>
+                </select>
+            </div>
+            <button type="button" id="btnSaleOrderStatis" class="btn btn-default">查询</button>
+        </form>
+    </div>
+</nav>
+
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <div id="divStatis" style="width: 600px;height:400px;"></div>

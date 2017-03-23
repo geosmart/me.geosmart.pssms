@@ -13,37 +13,37 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
-import me.geosmart.pssms.client.front.web.DTO.BackOrderQueryDTO;
-import me.geosmart.pssms.rpcs.service.ITbBackOrderService;
+import me.geosmart.pssms.client.front.web.DTO.SaleOrderQueryDTO;
+import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
 
 /**
  * <p>
- * 退单使用记录 前端控制器
+ * 货品销售记录 前端控制器
  * </p>
  *
  * @author geosmart
  * @since 2017-03-11
  */
 @RestController
-@RequestMapping("/api/backOrder")
-public class TbBackOrderController {
+@RequestMapping("/api/saleOrder")
+public class SaleOrderController {
 
     @Autowired
-    ITbBackOrderService backOrderService;
+    ITbSaleOrderService saleOrderService;
 
     /**
      * 分页查询
      */
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public Page test3(@RequestBody BackOrderQueryDTO input) {
+    public Page querySaleOrder(@RequestBody SaleOrderQueryDTO input) {
         int pageNumber = input.getPageNumber();
         int pageSize = input.getPageSize();
+        String orderType = input.getOrderType();
+        String productCode = input.getProductCode();
         Date beginDate = input.getBeginDate();
         Date endDate = input.getEndDate();
         String customerCode = input.getCustomerCode();
-        String backOrderStatus = input.getBackOrderStatus();
-        String backOrderId = input.getBackOrderId();
-        Page objs = backOrderService.queryBackOrder(pageNumber, pageSize, beginDate, endDate, customerCode, backOrderStatus, backOrderId);
+        Page objs = saleOrderService.querySaleOrder(pageNumber, pageSize, beginDate, endDate, orderType, productCode, customerCode);
         List jsonObjs = JSON.parseArray(JSON.toJSONString(objs.getRecords()), Map.class);
         objs.setRecords(jsonObjs);
         return objs;
