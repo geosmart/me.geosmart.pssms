@@ -12,4 +12,5 @@ api.host = "http://localhost:8080";
 api.backOrderQuery= api.host + "/api/backOrder/query";
 api.saleOrderQuery = api.host + "/api/saleOrder/query";
 api.saleOrderStatis = api.host + "/api/statis/saleOrderStatis";
+api.backRateStatis = api.host + "/api/statis/backRateStatis";
 

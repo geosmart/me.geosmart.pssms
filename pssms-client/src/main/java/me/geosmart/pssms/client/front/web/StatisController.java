@@ -38,4 +38,15 @@ public class StatisController {
         Map statisAmount = statisService.statisSaleAmount(beginDate, endDate, orderType).toJavaObject(Map.class);
         return statisAmount;
     }
+
+    /**
+     * 统计各货号退货率
+     */
+    @RequestMapping(value = "/backRateStatis", method = RequestMethod.POST)
+    public Map backRateStatis(@RequestBody SaleOrderQueryDTO input) throws Exception {
+        Date beginDate = input.getBeginDate();
+        Date endDate = input.getEndDate();
+        Map statisAmount = statisService.statisBackRate(beginDate, endDate).toJavaObject(Map.class);
+        return statisAmount;
+    }
 }
