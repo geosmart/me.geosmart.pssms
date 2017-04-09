@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.geosmart.pssms.rpcs.mapper.TbSaleOrderMapper">
-
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="me.geosmart.pssms.rpcs.entity.TbSaleOrder">
-        <id column="serialId" property="serialId" />
-        <result column="order_type" property="orderType" />
-        <result column="order_id" property="orderId" />
-        <result column="order_date" property="orderDate" />
-        <result column="customer_code" property="customerCode" />
-        <result column="product_code" property="productCode" />
-        <result column="number" property="number" />
-        <result column="price" property="price" />
-        <result column="amount" property="amount" />
-        <result column="memo" property="memo" />
-    </resultMap>
-
     <select id="selectSumSaleAmount" resultType="java.lang.Double">
         SELECT sum(amount) as sale_amount
         FROM tb_sale_order
@@ -48,7 +33,27 @@
             <if test="orderDateBegin != null">AND order_date <![CDATA[ >= ]]> #{orderDateBegin}</if>
             <if test="orderDateEnd != null">AND order_date <![CDATA[ <= ]]> #{orderDateEnd}</if>
         </where>
-        GROUP BY product_code,order_type  ORDER BY product_code,order_type desc,sale_number  desc
+        GROUP BY product_code,order_type ORDER BY product_code,order_type desc,sale_number desc
+    </select>
+
+    <select id="getCustomerCode" resultType="java.util.HashMap">
+        select customer_code,sum(number) as saleNum    from  tb_sale_order
+        where  customer_code not like  '散客%'
+        group by  customer_code
+    </select>
+
+    <select id="groupOrderNumByCustomer" resultType="java.util.HashMap">
+        SELECT customer_code,product_code,price,sum(number) as sale_num FROM tb_sale_order
+        <where>
+            number is not null
+            and customer_code in (select customer_name from tb_customer)
+            <if test="customerCode != null">AND customer_code = #{customerCode}</if>
+            <if test="orderType != null">AND order_type = #{orderType}</if>
+            <if test="orderDateBegin != null">AND order_date <![CDATA[ >= ]]> #{orderDateBegin}</if>
+            <if test="orderDateEnd != null">AND order_date <![CDATA[ <= ]]> #{orderDateEnd}</if>
+        </where>
+        GROUP BY customer_code,product_code,price
+        ORDER BY customer_code,product_code desc
     </select>
 
 </mapper>

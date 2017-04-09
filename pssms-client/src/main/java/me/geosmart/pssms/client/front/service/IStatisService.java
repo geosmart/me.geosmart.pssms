@@ -22,6 +22,8 @@ public interface IStatisService {
     JSONObject statisSaleAmount(Date orderDateBegin, Date orderDateEnd, String orderType) throws Exception;
 
 
+    JSONObject statisSaleAmount(Date orderDateBegin, Date orderDateEnd, String orderType, String customerCode) throws Exception;
+
     /**
      * 统计各货号退货率
      */

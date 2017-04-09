@@ -18,8 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import me.geosmart.pssms.rpcs.entity.TbBackOrder;
 import me.geosmart.pssms.client.front.service.IStatisService;
+import me.geosmart.pssms.rpcs.entity.TbBackOrder;
 import me.geosmart.pssms.rpcs.service.ITbBackOrderLogService;
 import me.geosmart.pssms.rpcs.service.ITbBackOrderService;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
@@ -175,6 +175,42 @@ public class StatisServiceImpl implements IStatisService {
         return statisData;
     }
 
+
+    @Override
+    public JSONObject statisSaleAmount(Date orderDateBegin, Date orderDateEnd, String orderType, String customerCode) throws Exception {
+        JSONObject statisData = new JSONObject();
+        //统计每个客户销售的产品-单价-数量
+        List<Map> resultMap = saleOrderService.groupOrderNumByCustomer(orderDateBegin, orderDateEnd, orderType, customerCode);
+        resultMap.forEach(item -> {
+            JSONObject customerJson = new JSONObject();
+            String key = null;
+            Object value = null;
+            Iterator it = item.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry entry = (Map.Entry) it.next();
+                if (entry.getKey().equals("customer_code")) {
+                    key = (String) entry.getValue();
+                } else {
+                    customerJson.put((String) entry.getKey(), entry.getValue());
+                }
+            }
+            if (statisData.containsKey(key)) {
+                JSONArray array = new JSONArray();
+                if (statisData.get(key) instanceof JSONArray) {
+                    array = ((JSONArray) statisData.get(key));
+                }
+                array.add(customerJson);
+                statisData.put(key, array);
+            } else {
+                JSONArray array = new JSONArray();
+                array.add(customerJson);
+                statisData.put(key, array);
+            }
+        });
+        return statisData;
+    }
+
+
     @Override
     public JSONObject statisBackRate(Date orderDateBegin, Date orderDateEnd) throws Exception {
         //退货件数统计/总销售件数
@@ -232,7 +268,7 @@ public class StatisServiceImpl implements IStatisService {
         List<TbBackOrder> resultList = backOrderService.selectBackOrderByStatus(orderDateBegin, orderDateEnd, orderStatus);
         resultList.forEach(item -> {
             JSONObject resultItem = new JSONObject();
-            resultItem.put("日期", item.getOrderDate());
+            resultItem.put("日期", item.getOrderCreateDate());
             resultItem.put("客户", item.getCustomerCode());
             resultItem.put("退单编号", item.getBackOrderId());
             resultItem.put("退单金额", item.getAmount());

@@ -6,7 +6,8 @@
 	<resultMap id="BaseResultMap" type="me.geosmart.pssms.rpcs.entity.TbBackOrder">
 		<id column="back_order_id" property="backOrderId" />
 		<result column="customer_code" property="customerCode" />
-		<result column="order_date" property="orderDate" />
+		<result column="order_create_date" property="orderCreateDate" />
+		<result column="order_use_date" property="orderUseDate" />
 		<result column="amount" property="amount" />
 		<result column="parent_back_order_id" property="parentBackOrderId" />
 		<result column="back_order_status" property="backOrderStatus" />
@@ -18,8 +19,8 @@
 		SELECT product_code,order_type,sum(number) as sale_number FROM tb_sale_order
 		<where>
 			number is not null
-			<if test="orderDateBegin != null">AND order_date <![CDATA[ >= ]]> #{orderDateBegin}</if>
-			<if test="orderDateEnd != null">AND order_date <![CDATA[ <= ]]> #{orderDateEnd}</if>
+			<if test="orderDateBegin != null">AND order_create_date <![CDATA[ >= ]]> #{orderDateBegin}</if>
+			<if test="orderDateEnd != null">AND order_create_date <![CDATA[ <= ]]> #{orderDateEnd}</if>
 		</where>
 		GROUP BY product_code,order_type  ORDER BY product_code,order_type desc,sale_number  desc
 	</select>

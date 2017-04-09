@@ -53,6 +53,15 @@ public class StatisServiceImplTest {
     }
 
     @Test
+    public void test_statisSaleAmountByCustomer() throws Exception {
+        Date sDate = DateUtil.getDate("2017-02-01");
+        Date eDate = DateUtil.getDate("2017-03-01");
+        String customerCode = null;
+        JSONObject findOrder = statisService.statisSaleAmount(sDate, eDate, "1", customerCode);
+        System.out.println(JSON.toJSONString(findOrder, true));
+    }
+
+    @Test
     public void test_statisBackRate() throws Exception {
         Date sDate = DateUtil.getDate("2017-02-01");
         Date eDate = DateUtil.getDate("2017-03-01");

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.geosmart.pssms.rpcs.mapper.TbCustomerMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="me.geosmart.pssms.rpcs.entity.TbCustomer">
+		<id column="serial_id" property="serialId" />
+		<result column="customer_name" property="customerName" />
+		<result column="customer_name_alias" property="customerNameAlias" />
+		<result column="contact_name" property="contactName" />
+		<result column="mobile_number" property="mobileNumber" />
+		<result column="wechat_code" property="wechatCode" />
+		<result column="alipay_code" property="alipayCode" />
+		<result column="address" property="address" />
+		<result column="memo" property="memo" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        serial_id AS serialId, customer_name AS customerName, customer_name_alias AS customerNameAlias, contact_name AS contactName, mobile_number AS mobileNumber, wechat_code AS wechatCode, alipay_code AS alipayCode, address, memo
+    </sql>
+</mapper>

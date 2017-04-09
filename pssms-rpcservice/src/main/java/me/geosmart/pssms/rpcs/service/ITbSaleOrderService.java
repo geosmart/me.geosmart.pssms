@@ -36,4 +36,11 @@ public interface ITbSaleOrderService extends IService<TbSaleOrder> {
      */
     List groupNumberByProduct(Date orderDateBegin, Date orderDateEnd, String orderType);
 
+
+    /**
+     * 每个客户-每个货号的销售件数
+     */
+    List groupOrderNumByCustomer(Date orderDateBegin, Date orderDateEnd, String orderType
+            , String customerCode);
+
 }

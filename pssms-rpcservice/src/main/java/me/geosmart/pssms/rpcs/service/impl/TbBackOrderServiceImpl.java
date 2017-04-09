@@ -31,8 +31,8 @@ public class TbBackOrderServiceImpl extends ServiceImpl<TbBackOrderMapper, TbBac
         EntityWrapper<TbBackOrder> ew = new EntityWrapper<TbBackOrder>() {
         };
         ew.where("back_order_status={0}", back_order_status).
-                andNew("order_date >= '{0}' and order_date <= '{1}'", orderDateBegin, orderDateEnd)
-                .orderBy("order_date desc");
+                andNew("order_create_date >= '{0}' and order_create_date <= '{1}'", orderDateBegin, orderDateEnd)
+                .orderBy("order_create_date desc");
         return baseMapper.selectList(ew);
     }
 
@@ -50,12 +50,12 @@ public class TbBackOrderServiceImpl extends ServiceImpl<TbBackOrderMapper, TbBac
             ew.eq("customer_code", customerCode);
         }
         if (beginDate != null) {
-            ew.andNew("order_date >= '{0}'", beginDate);
+            ew.andNew("order_create_date >= '{0}'", beginDate);
         }
         if (endDate != null) {
-            ew.andNew("order_date <= '{0}'", endDate);
+            ew.andNew("order_create_date <= '{0}'", endDate);
         }
-        ew.orderBy(" order_date desc");
+        ew.orderBy(" order_create_date desc");
         pager.setRecords(baseMapper.selectPage(pager, ew));
         return pager;
     }

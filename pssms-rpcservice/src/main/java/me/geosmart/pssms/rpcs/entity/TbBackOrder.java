@@ -1,10 +1,9 @@
 package me.geosmart.pssms.rpcs.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import me.geosmart.pssms.rpcs.entity.BaseEntity;
+
 import java.io.Serializable;
 
 
@@ -22,99 +21,112 @@ public class TbBackOrder extends BaseEntity<TbBackOrder> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 退单编号（如果是系统生成，已-0结尾）
+     * 退单编号
      */
-	@TableId("back_order_id")
-	private String backOrderId;
+    @TableId("back_order_id")
+    private String backOrderId;
     /**
      * 客户编号
      */
-	@TableField("customer_code")
-	private String customerCode;
+    @TableField("customer_code")
+    private String customerCode;
     /**
-     * 交易日期
+     * 退单新增日期
      */
-	@TableField("order_date")
-	private String orderDate;
+    @TableField("order_create_date")
+    private String orderCreateDate;
+
+    /**
+     * 退单使用日期
+     */
+    @TableField("order_use_date")
+    private String orderUseDate;
     /**
      * 退单金额
      */
-	private Double amount;
+    private Double amount;
     /**
      * 父退单号
      */
-	@TableField("parent_back_order_id")
-	private String parentBackOrderId;
+    @TableField("parent_back_order_id")
+    private String parentBackOrderId;
     /**
      * 退单使用情况
      */
-	@TableField("back_order_status")
-	private String backOrderStatus;
+    @TableField("back_order_status")
+    private String backOrderStatus;
     /**
      * 备注
      */
-	private String memo;
+    private String memo;
 
+    public String getOrderUseDate() {
+        return orderUseDate;
+    }
 
-	public String getBackOrderId() {
-		return backOrderId;
-	}
+    public void setOrderUseDate(String orderUseDate) {
+        this.orderUseDate = orderUseDate;
+    }
 
-	public void setBackOrderId(String backOrderId) {
-		this.backOrderId = backOrderId;
-	}
+    public String getBackOrderId() {
+        return backOrderId;
+    }
 
-	public String getCustomerCode() {
-		return customerCode;
-	}
+    public void setBackOrderId(String backOrderId) {
+        this.backOrderId = backOrderId;
+    }
 
-	public void setCustomerCode(String customerCode) {
-		this.customerCode = customerCode;
-	}
+    public String getCustomerCode() {
+        return customerCode;
+    }
 
-	public String getOrderDate() {
-		return orderDate;
-	}
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
+    }
 
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
-	}
+    public String getOrderCreateDate() {
+        return orderCreateDate;
+    }
 
-	public Double getAmount() {
-		return amount;
-	}
+    public void setOrderCreateDate(String orderCreateDate) {
+        this.orderCreateDate = orderCreateDate;
+    }
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
+    public Double getAmount() {
+        return amount;
+    }
 
-	public String getParentBackOrderId() {
-		return parentBackOrderId;
-	}
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
-	public void setParentBackOrderId(String parentBackOrderId) {
-		this.parentBackOrderId = parentBackOrderId;
-	}
+    public String getParentBackOrderId() {
+        return parentBackOrderId;
+    }
 
-	public String getBackOrderStatus() {
-		return backOrderStatus;
-	}
+    public void setParentBackOrderId(String parentBackOrderId) {
+        this.parentBackOrderId = parentBackOrderId;
+    }
 
-	public void setBackOrderStatus(String backOrderStatus) {
-		this.backOrderStatus = backOrderStatus;
-	}
+    public String getBackOrderStatus() {
+        return backOrderStatus;
+    }
 
-	public String getMemo() {
-		return memo;
-	}
+    public void setBackOrderStatus(String backOrderStatus) {
+        this.backOrderStatus = backOrderStatus;
+    }
 
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}
+    public String getMemo() {
+        return memo;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return this.backOrderId;
-	}
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.backOrderId;
+    }
 
 }

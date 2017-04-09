@@ -36,4 +36,13 @@ public interface TbSaleOrderMapper extends BaseMapper<TbSaleOrder> {
      */
     Double selectSumSaleAmount(@Param("orderDateBegin") Date orderDateBegin, @Param("orderDateEnd") Date orderDateEnd,
                                @Param("orderType") String orderType);
+
+
+    /**
+     * 获取客户号
+     */
+    List getCustomerCode();
+
+    List groupOrderNumByCustomer(@Param("orderDateBegin") Date orderDateBegin, @Param("orderDateEnd") Date orderDateEnd,
+                                       @Param("orderType") String orderType,@Param("customerCode") String customerCode);
 }

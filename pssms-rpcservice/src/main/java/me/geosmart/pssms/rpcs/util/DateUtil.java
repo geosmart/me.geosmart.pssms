@@ -9,11 +9,12 @@ import java.text.SimpleDateFormat;
  * 日期辅助类
  */
 public class DateUtil {
+    public final static String FORMAT_DATE = "yyyy-MM-dd";
     private final static Logger logger = Logger.getLogger(DateUtil.class);
     static SnowFlake snowFlake = null;
 
     public static Date getDate(String dateString) {
-        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat bartDateFormat = new SimpleDateFormat(FORMAT_DATE);
         try {
             java.util.Date date = bartDateFormat.parse(dateString);
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());

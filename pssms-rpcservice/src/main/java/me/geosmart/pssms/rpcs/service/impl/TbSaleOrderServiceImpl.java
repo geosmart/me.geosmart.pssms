@@ -51,6 +51,12 @@ public class TbSaleOrderServiceImpl extends ServiceImpl<TbSaleOrderMapper, TbSal
         return pager;
     }
 
+
+    @Override
+    public List groupOrderNumByCustomer(Date orderDateBegin, Date orderDateEnd, String orderType, String customerCode) {
+        return baseMapper.groupOrderNumByCustomer(orderDateBegin, orderDateEnd, orderType, customerCode);
+    }
+
     @Override
     public List<Map> groupAmountByProduct(Date orderDateBegin, Date orderDateEnd, String orderType) {
         return baseMapper.groupAmountByProduct(orderDateBegin, orderDateEnd, orderType);

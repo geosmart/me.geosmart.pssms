@@ -27,6 +27,7 @@ import me.geosmart.pssms.rpcs.entity.TbSaleOrder;
 import me.geosmart.pssms.rpcs.service.ITbBackOrderLogService;
 import me.geosmart.pssms.rpcs.service.ITbBackOrderService;
 import me.geosmart.pssms.rpcs.service.ITbSaleOrderService;
+import me.geosmart.pssms.rpcs.util.DateUtil;
 
 /**
  * <p>
@@ -57,7 +58,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         saleOrderMap.put("金额", "amount");
         saleOrderMap.put("备注", "memo");
 
-        backOrderMap.put("日期", "order_date");
+        backOrderMap.put("日期", "last_modified_time");
         backOrderMap.put("退单编号", "back_order_id");
         backOrderMap.put("客户", "customer_code");
         backOrderMap.put("退单金额", "amount");
@@ -124,7 +125,7 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
                 backOrders.add(backOrder);
             }
         }
-        backOrderService.insertBatch(backOrders, 1000);
+        backOrderService.insertOrUpdateBatch(backOrders, 1000);
     }
 
     @Override
@@ -174,6 +175,12 @@ public class DataExchangeServiceImpl implements IDataExchangeService {
         }
         if (backOrder != null && StringUtils.isNotBlank(backOrder.getBackOrderStatus())) {
             backOrder.setBackOrderStatus(new Integer(Double.valueOf(backOrder.getBackOrderStatus()).intValue()).toString());
+
+            if (backOrder.getBackOrderStatus().equals("1")) {
+                backOrder.setOrderUseDate(DateUtil.formatDateTime(backOrder.getLastModifiedTime(), DateUtil.FORMAT_DATE));
+            } else {
+                backOrder.setOrderCreateDate(DateUtil.formatDateTime(backOrder.getLastModifiedTime(), DateUtil.FORMAT_DATE));
+            }
         }
         return backOrder;
     }
